@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" th:fragment="master">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Simple Shop</title>
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet"/>
+</head>
+<body>
+<header></header>
+<nav></nav>
+<div th:include="this :: content"></div>
+<footer id="footer">© 2019 SznaKuKZie.pl</footer>
+</body>
+</html>

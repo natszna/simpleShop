@@ -1,12 +1,19 @@
 package pl.natalia.simpleShop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "products")
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +42,5 @@ public class Product {
     private boolean available;
 
     @OneToOne(mappedBy = "product")
-    //@NotEmpty
-    //@JsonIgnore
-    //@JoinColumn(name = "order_id", referencedColumnName = "ORDER_ID")
     private Order order;
 }

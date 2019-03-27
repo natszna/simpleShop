@@ -1,0 +1,12 @@
+.grid {
+    display: grid;
+    grid-gap: 10px;
+}
+
+#favourites {
+    float: right;
+}
+
+#footer {
+    clear: right;
+}

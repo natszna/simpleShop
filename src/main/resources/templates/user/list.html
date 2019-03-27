@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" th:include="layout :: master">
+<body>
+<div th:fragment="content">
+    <section>
+        <td><a th:href="@{/users/add}">
+            <button th:text="#{general.add}">Add</button>
+        </a></td>
+        <table>
+            <caption>Users</caption>
+            <thead>
+            <tr>
+                <th>User Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Login</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Approved</th>
+                <th>Edit</th>
+                <th>Delete</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userId}"></td>
+                <td th:text="${user.firstname}"></td>
+                <td th:text="${user.lastname}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.login}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.role}"></td>
+
+
+                <td>
+                    <span th:if="${user.approved == true}">approved</span>
+                    <span th:unless="${user.approved == true}"><a th:href="@{/users/approved/{id}(id=${user.userId})}">
+                        <button th:text="#{general.approved}">Approved</button></a></span>
+                </td>
+
+                <td><a th:href="@{/users/edit/{id}(id=${user.userId})}">
+                    <button th:text="#{general.edit}">Edit</button>
+                </a></td>
+                <td><a th:href="@{/users/delete/{id}(id=${user.userId})}">
+                    <button th:text="#{general.delete}">Delete</button>
+                </a></td>
+            </tr>
+            </tbody>
+        </table>
+        <td><a th:href="@{/users/add}">
+            <button th:text="#{general.add}">Add</button>
+        </a></td>
+    </section>
+</div>
+</body>
+</html>

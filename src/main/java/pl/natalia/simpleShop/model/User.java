@@ -1,18 +1,27 @@
 package pl.natalia.simpleShop.model;
 
+import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class User {
-public enum Role{
-    ADMIN,
-    USER
-}
+
+    public enum Role {
+        ADMIN,
+        USER
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,13 +46,13 @@ public enum Role{
     @Column(name = "password")
     private String password;
 
-    @NotEmpty
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name="role")
+    @Column(name = "role")
     private Role role;
 
     @NotEmpty
-    @Column(name="approved")
+    @Column(name = "approved")
     private boolean approved;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
@@ -51,9 +60,5 @@ public enum Role{
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Order> orders = new ArrayList<>();
-
-    public User() {
-    }
-
 
 }
