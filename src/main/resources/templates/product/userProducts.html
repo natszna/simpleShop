@@ -4,16 +4,18 @@
 <body>
 <div th:fragment="content">
     <section>
-
+        <td><a th:href="@{/userProducts/addProduct}">
+            <button th:text="#{general.add}">Add</button>
+        </a></td>
         <table>
             <caption th:text="#{product.products}">Products</caption>
             <thead>
             <tr>
                 <th th:text="#{product.productId}">id</th>
                 <th th:text="#{product.productName}">name</th>
-                <th th:text="#{product.description}">opis</th>
+                <th th:text="#{product.description}">Description</th>
                 <th th:text="#{product.price}">Price</th>
-                <th th:text="#{product.available}">Price</th>
+                <th th:text="#{product.available}">Available</th>
                 <th th:text="#{general.deleteMyProduct}">Delete</th>
 
 
@@ -34,7 +36,9 @@
             </tr>
             </tbody>
         </table>
-
+        <td><a th:href="@{/userProducts/addProduct}">
+            <button th:text="#{general.add}">Add</button>
+        </a></td>
     </section>
 </div>
 </body>

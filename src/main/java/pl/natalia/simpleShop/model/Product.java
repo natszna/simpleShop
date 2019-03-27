@@ -5,6 +5,8 @@ import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -26,33 +28,23 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @NotEmpty
+//    @NotEmpty
+    @DecimalMin(value = "0.1")
     @Column(name = "price")
-    private double price;
+    private BigDecimal price;
 
     @ManyToOne
-    @NotEmpty
+//    @NotEmpty
     @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "USER_ID")
     private User user;
 
-    @NotEmpty
     @Column(name="available")
     private boolean available;
 
     @OneToOne(mappedBy = "product")
     private Order order;
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", productName='" + productName + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", available=" + available +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -60,14 +52,25 @@ public class Product {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
         return productId == product.productId &&
-                Double.compare(product.price, price) == 0 &&
                 available == product.available &&
                 Objects.equals(productName, product.productName) &&
-                Objects.equals(description, product.description);
+                Objects.equals(description, product.description) &&
+                Objects.equals(price, product.price);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(productId, productName, description, price, available);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", description='" + description + '\'' +
+                ", price='" + price + '\'' +
+                ", available=" + available +
+                '}';
     }
 }

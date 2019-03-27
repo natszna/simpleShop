@@ -12,6 +12,7 @@ import pl.natalia.simpleShop.repository.UserRepository;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Controller
@@ -38,8 +39,23 @@ public class ProductController {
     public String delete(@PathVariable("id") Long id) {
         if (productRepository.findByProductId(id).isAvailable() == true){
             productRepository.delete(id);}
-
         return "redirect:/userProducts";
     }
 
+    @GetMapping("/userProducts/addProduct")
+    public String showAddProduct(Map<String, Object> model2) {
+        model2.put("product", new Product());
+        //   model.put("roles", User.Role.values());
+        return "product/addProduct";
+    }
+
+    @PostMapping("/userProducts/addProduct")
+    public String addProduct(@ModelAttribute("product") Product product) {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final String name = authentication.getName();
+        final User user = userRepository.findByLogin(name);
+        product.setUser(user);
+        productRepository.save(product);
+        return "redirect:/userProducts";
+    }
 }
