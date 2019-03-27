@@ -10,39 +10,32 @@
             <thead>
             <tr>
                 <th th:text="#{product.productId}">id</th>
-                <th th:text="#{product.productName}">Name</th>
-                <th th:text="#{product.description}">Description</th>
+                <th th:text="#{product.productName}">name</th>
+                <th th:text="#{product.description}">opis</th>
                 <th th:text="#{product.price}">Price</th>
                 <th th:text="#{product.available}">Available</th>
                 <th th:text="#{product.user}">User</th>
-                <th th:text="#{general.addProduct}">Add Product</th>
+                <th th:text="#{general.deleteProduct}">Delete Product</th>
 
 
             </tr>
             </thead>
             <tbody>
-
-            <tr th:each="product : ${products}">
-                                    <span th:if="${product.available == true}">
-
+            <!--/*@thymesVar id="addProduct" type="java.util.Set<pl.SznaKuKZie.project.product.model.Product>"*/-->
+            <tr th:each="product : ${addProduct}" >
                 <td th:text="${product.productId}"></td>
                 <td th:text="${product.productName}"></td>
                 <td th:text="${product.description}"></td>
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.available}"></td>
                 <td th:text="${product.user.login}"></td>
-                <td><a th:href="@{/products/add/{id}(id=${product.productId})}"><button th:text="#{general.addProduct}">Add Product</button></a> </td>
-                                    </span>
+                <td><a th:href="@{/basket/delete/{id}(id=${product.productId})}">
+                    <button th:text="#{general.deleteProduct}">Delete Product</button>
+                </a></td>
+
             </tr>
             </tbody>
         </table>
-
-        <aside id="product">
-            <ul>
-                <!--/*@thymesVar id="addProduct" type="java.util.Set<pl.SznaKuKZie.project.product.model.Product>"*/-->
-                <li th:each="product : ${addProduct}" th:text="${product.productName}">name</li>
-            </ul>
-        </aside>
     </section>
 </div>
 </body>
