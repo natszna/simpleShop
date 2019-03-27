@@ -7,4 +7,6 @@ import pl.natalia.simpleShop.model.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findByProductId(long productId);
+    String findByUserLogin(String login);
+
 }

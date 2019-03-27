@@ -98,10 +98,4 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping("/home")
-    public String showPublic() {
-        return "home";
-    }
-
-
 }

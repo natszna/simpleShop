@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "products")
@@ -51,5 +52,22 @@ public class Product {
                 ", price=" + price +
                 ", available=" + available +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return productId == product.productId &&
+                Double.compare(product.price, price) == 0 &&
+                available == product.available &&
+                Objects.equals(productName, product.productName) &&
+                Objects.equals(description, product.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productId, productName, description, price, available);
     }
 }
