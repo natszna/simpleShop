@@ -17,6 +17,7 @@
                 <th th:text="#{product.price}">Price</th>
                 <th th:text="#{product.available}">Available</th>
                 <th th:text="#{general.deleteMyProduct}">Delete</th>
+                <th th:text="#{general.editMyProduct}">Edit</th>
 
 
             </tr>
@@ -28,11 +29,17 @@
                 <td th:text="${product.productName}"></td>
                 <td th:text="${product.description}"></td>
                 <td th:text="${product.price}"></td>
-                <td th:text="${product.available}"></td>
+                <td>
+                    <span th:if="${product.available == false}">false</span>
+                    <span th:unless="${product.available == false}">true<a th:href="@{/userProducts/edit/{id}(id=${product.productId})}">
+                    </a></span>
+                </td>
                 <td><a th:href="@{/userProducts/delete/{id}(id=${product.productId})}">
                     <button th:text="#{general.deleteMyProduct}">Delete</button>
                 </a></td>
-
+                <td><a th:href="@{/userProducts/edit/{id}(id=${product.productId})}">
+                    <button th:text="#{general.edit}">Edit</button>
+                </a></td>
             </tr>
             </tbody>
         </table>

@@ -23,7 +23,7 @@ public class Order {
     private String address;
 
     @ManyToOne
-    @NotEmpty
+//    @NotEmpty
     @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "USER_ID")
     private User user;

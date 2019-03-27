@@ -58,4 +58,19 @@ public class ProductController {
         productRepository.save(product);
         return "redirect:/userProducts";
     }
+
+    @GetMapping("/userProducts/edit/{id}")
+    public String showEditProduct(Map<String, Object> model2, @PathVariable("id") long productId) {
+        Product product = productRepository.findByProductId(productId);
+        if (product.isAvailable() == true) {
+            model2.put("product", product);}
+
+        return "product/addProduct";
+    }
+
+    @PutMapping("/userProducts/edit/{id}")
+    public String showList2(@ModelAttribute("product") Product product, @PathVariable("id") long productId) {
+        productRepository.findByProductId(productId);
+        return "redirect:/userProducts";
+    }
 }

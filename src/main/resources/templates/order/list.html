@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" th:include="layout :: master">
+<body>
+<div th:fragment="content">
+    <section>
+
+        <table>
+            <caption th:text="#{order.orders}">Orders</caption>
+            <thead>
+            <tr>
+                <th th:text="#{order.orderId}">Id</th>
+                <th th:text="#{order.address}">Address</th>
+                <th th:text="#{order.product}">Product Id</th>
+                <th th:text="#{order.user}">User</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.orderId}"></td>
+                <td th:text="${order.address}"></td>
+                <td th:text="${order.product.productName}"></td>
+                <td th:text="${order.user.login}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </section>
+</div>
+</body>
+</html>
