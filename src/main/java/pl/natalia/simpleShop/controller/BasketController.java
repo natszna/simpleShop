@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@SessionAttributes("addProduct")
+@SessionAttributes("basket")
 public class BasketController {
 
     @Autowired
@@ -24,16 +24,16 @@ public class BasketController {
     @Autowired
     private UserRepository userRepository;
 
-    @ModelAttribute("addProduct")
+    @ModelAttribute("basket")
     public Set<Product> addProductToBasket() {
         return new HashSet<>();
     }
 
     @GetMapping("/products/add/{id}")
-    public String add(@SessionAttribute("addProduct") Set<Product> adds, @PathVariable("id") Long id) {
-        boolean userWerification = showAuthentication().getLogin().equals(productRepository.findByProductId(id).getUser().getLogin());
+    public String showAddProductToBasket(@SessionAttribute("basket") Set<Product> basket, @PathVariable("id") Long productId) {
+        boolean userWerification = showAuthentication().getLogin().equals(productRepository.findByProductId(productId).getUser().getLogin());
         if (userWerification == false){
-        adds.add(productRepository.findOne(id));
+        basket.add(productRepository.findOne(productId));
         }
         return "redirect:/full";
     }
@@ -42,6 +42,22 @@ public class BasketController {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();
         return userRepository.findByLogin(name);
+    }
+
+    @ModelAttribute("basket")
+    public List<Product> getAllProductsFromBasket() {
+        return productRepository.findAll();
+    }
+
+    @GetMapping("/basket")
+    public String showListFromBasket() {
+        return "product/basket";
+    }
+
+    @GetMapping("/basket/delete/{id}")
+    public String deleteProduct(@SessionAttribute("basket") Set<Product> basket, @PathVariable("id") Long productId) {
+        basket.remove(productRepository.findOne(productId));
+        return "redirect:/basket";
     }
 
     @ModelAttribute("products")
@@ -65,23 +81,5 @@ public class BasketController {
         return "product/products";
     }
 
-
-
-    @ModelAttribute("basket")
-    public List<Product> getAllProductsFromBasket() {
-        return productRepository.findAll();
-    }
-
-    @GetMapping("/basket")
-    public String showListFromBasket() {
-        return "product/basket";
-    }
-
-
-    @GetMapping("/basket/delete/{id}")
-    public String deleteProduct(@SessionAttribute("addProduct")Set<Product> adds, @PathVariable("id") Long id) {
-        adds.remove(productRepository.findOne(id));
-        return "redirect:/basket";
-    }
 
 }

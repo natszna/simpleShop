@@ -32,48 +32,47 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String showList() {
+    public String showUsersList() {
         return "user/list";
     }
 
-    @GetMapping("/users/edit/{id}")
-    public String showEdit(Map<String, Object> model, @PathVariable("id") long userId) {
-        User u = userRepository.findByUserId(userId);
-        model.put("user", u);
-        model.put("roles", User.Role.values());
-        return "user/add";
-    }
-
-    @PutMapping("/users/edit/{id}")
-    public String showList2(@ModelAttribute("user") User user, @PathVariable("id") long userId) {
-        userRepository.findByUserId(userId);
-        return "redirect:/users";
-    }
-
-
     @GetMapping("/users/add")
-    public String showAdd(Map<String, Object> model) {
+    public String addUser(Map<String, Object> model) {
         model.put("user", new User());
         model.put("roles", User.Role.values());
         return "user/add";
     }
 
     @PostMapping("/users/add")
-    public String add(@ModelAttribute("user") User user) {
+    public String showAddUser(@ModelAttribute("user") User user) {
         userRepository.save(user);
         return "redirect:/users";
     }
 
+    @GetMapping("/users/edit/{id}")
+    public String editUser(Map<String, Object> model, @PathVariable("id") long userId) {
+        User user = userRepository.findByUserId(userId);
+        model.put("user", user);
+        model.put("roles", User.Role.values());
+        return "user/add";
+    }
+
+    @PutMapping("/users/edit/{id}")
+    public String showEditUser(@ModelAttribute("user") User user, @PathVariable("id") long userId) {
+        userRepository.findByUserId(userId);
+        return "redirect:/users";
+    }
+
     @GetMapping("/users/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
-        userRepository.delete(id);
+    public String deleteUser(@PathVariable("id") Long userId) {
+        userRepository.delete(userId);
         return "redirect:/users";
     }
 
 
     @GetMapping("/users/approved/{id}")
-    public String approved(@PathVariable("id") Long id) {
-        User user = userRepository.findByUserId(id);
+    public String approveUser(@PathVariable("id") Long userId) {
+        User user = userRepository.findByUserId(userId);
         user.setApproved(true);
         userRepository.save(user);
         return "redirect:/users";
@@ -86,14 +85,14 @@ public class UserController {
 
 
     @GetMapping("/registry")
-    public String showRegistry(Map<String, Object> model) {
+    public String registryUser(Map<String, Object> model) {
         model.put("user", new User());
         model.put("roles", User.Role.values());
         return "user/registry";
     }
 
     @PostMapping("/registry")
-    public String registry(@ModelAttribute("user") User user) {
+    public String showRegistryUser(@ModelAttribute("user") User user) {
         userRepository.save(user);
         return "redirect:/login";
     }

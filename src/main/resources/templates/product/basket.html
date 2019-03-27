@@ -13,7 +13,7 @@
                 <th th:text="#{product.productName}">name</th>
                 <th th:text="#{product.description}">opis</th>
                 <th th:text="#{product.price}">Price</th>
-                <th th:text="#{product.available2}">Available</th>
+                <th th:text="#{product.available}">Available</th>
                 <th th:text="#{product.user}">User</th>
                 <th th:text="#{general.deleteProduct}">Delete Product</th>
 
@@ -21,8 +21,8 @@
             </tr>
             </thead>
             <tbody>
-            <!--/*@thymesVar id="addProduct" type="java.util.Set<pl.SznaKuKZie.project.product.model.Product>"*/-->
-            <tr th:each="product : ${addProduct}" >
+            <!--/*@thymesVar id="basket" type="java.util.Set<pl.natalia.simpleShop.model.Product>"*/-->
+            <tr th:each="product : ${basket}" >
                 <td th:text="${product.productId}"></td>
                 <td th:text="${product.productName}"></td>
                 <td th:text="${product.description}"></td>

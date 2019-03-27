@@ -25,32 +25,31 @@ public class ProductController {
     private UserRepository userRepository;
 
     @ModelAttribute("userProducts")
-    public List<Product> getAllUsers(Authentication authentication) {
+    public List<Product> getAllProducts(Authentication authentication) {
         final String name = authentication.getName();
         return productRepository.findByUserLogin(name);
     }
 
     @GetMapping("/userProducts")
-    public String showList() {
+    public String showUserProducts() {
         return "product/userProducts";
     }
 
     @GetMapping("/userProducts/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
-        if (productRepository.findByProductId(id).isAvailable() == true){
-            productRepository.delete(id);}
+    public String deleteProduct(@PathVariable("id") Long productId) {
+        if (productRepository.findByProductId(productId).isAvailable() == true){
+            productRepository.delete(productId);}
         return "redirect:/userProducts";
     }
 
     @GetMapping("/userProducts/addProduct")
-    public String showAddProduct(Map<String, Object> model2) {
+    public String addProduct(Map<String, Object> model2) {
         model2.put("product", new Product());
-        //   model.put("roles", User.Role.values());
         return "product/addProduct";
     }
 
     @PostMapping("/userProducts/addProduct")
-    public String addProduct(@ModelAttribute("product") Product product) {
+    public String showAddProduct(@ModelAttribute("product") Product product) {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();
         final User user = userRepository.findByLogin(name);
@@ -60,17 +59,17 @@ public class ProductController {
     }
 
     @GetMapping("/userProducts/edit/{id}")
-    public String showEditProduct(Map<String, Object> model2, @PathVariable("id") long productId) {
+    public String editProduct(Map<String, Object> model2, @PathVariable("id") long productId) {
         Product product = productRepository.findByProductId(productId);
         if (product.isAvailable() == true) {
-            model2.put("product", product);}
-
+            model2.put("product", product);
+        }
         return "product/addProduct";
     }
 
     @PutMapping("/userProducts/edit/{id}")
-    public String showList2(@ModelAttribute("product") Product product, @PathVariable("id") long productId) {
-        productRepository.findByProductId(productId);
-        return "redirect:/userProducts";
+        public String showEditProduct(@ModelAttribute("product") Product product, @PathVariable("id") long productId) {
+            productRepository.findByProductId(productId);
+            return "redirect:/userProducts";
     }
 }

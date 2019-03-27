@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
@@ -23,7 +24,6 @@ public class Order {
     private String address;
 
     @ManyToOne
-//    @NotEmpty
     @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "USER_ID")
     private User user;
@@ -40,5 +40,19 @@ public class Order {
                 "orderId=" + orderId +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return orderId == order.orderId &&
+                Objects.equals(address, order.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderId, address);
     }
 }

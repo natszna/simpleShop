@@ -13,7 +13,8 @@ INSERT INTO PRODUCTS(PRODUCT_ID, PRODUCT_NAME, DESCRIPTION, PRICE, USER_ID, AVAI
 (6, 'product6', 'description6', 16.00, 4, true);
 
 INSERT INTO ORDERS(ORDER_ID, ADDRESS, USER_ID, PRODUCT_ID) VALUES
-(1, 'Gdańsk', 3, 1);
+(1, 'Gdańsk', 3, 1),
+(2, 'Gdańsk', 3, 5);
 
 
 

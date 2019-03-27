@@ -39,8 +39,8 @@
 
         <aside id="product">
             <ul>
-                <!--/*@thymesVar id="addProduct" type="java.util.Set<pl.SznaKuKZie.project.product.model.Product>"*/-->
-                <li th:each="product : ${addProduct}" th:text="${product.productName}">name</li>
+                <!--/*@thymesVar id="basket" type="java.util.Set<pl.natalia.simpleShop.model.Product>"*/-->
+                <li th:each="product : ${basket}" th:text="${product.productName}">name</li>
             </ul>
         </aside>
     </section>

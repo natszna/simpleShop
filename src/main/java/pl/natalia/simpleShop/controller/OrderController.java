@@ -15,12 +15,12 @@ public class OrderController {
     private OrderRepository orderRepository;
 
     @ModelAttribute("orders")
-    public List<Order> getAllUsers() {
+    public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
     @GetMapping("/orders")
-    public String showList() {
+    public String showAllOrders() {
         return "order/list";
     }
 }

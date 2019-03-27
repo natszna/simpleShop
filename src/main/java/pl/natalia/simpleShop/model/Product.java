@@ -28,13 +28,11 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-//    @NotEmpty
     @DecimalMin(value = "0.1")
     @Column(name = "price")
     private BigDecimal price;
 
     @ManyToOne
-//    @NotEmpty
     @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "USER_ID")
     private User user;
