@@ -15,68 +15,31 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@SessionAttributes("addProduct")
 public class ProductController {
+
     @Autowired
     private ProductRepository productRepository;
 
     @Autowired
     private UserRepository userRepository;
 
-    @ModelAttribute("addProduct")
-    public Set<Product> addProductToBasket() {
-        return new HashSet<>();
-    }
-
-    @GetMapping("/products/add/{id}")
-    public String add(@SessionAttribute("addProduct") Set<Product> adds, @PathVariable("id") Long id) {
-        boolean userWerification = showAuthentication().getLogin().equals(productRepository.findByProductId(id).getUser().getLogin());
-        if (userWerification == false) {
-            adds.add(productRepository.findOne(id));
-        }
-        return "redirect:/full";
-    }
-
-    public User showAuthentication() {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    @ModelAttribute("userProducts")
+    public List<Product> getAllUsers(Authentication authentication) {
         final String name = authentication.getName();
-        return userRepository.findByLogin(name);
+        return productRepository.findByUserLogin(name);
     }
 
-    @ModelAttribute("products")
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
-
-    @GetMapping("/products")
+    @GetMapping("/userProducts")
     public String showList() {
-        return "home";
+        return "product/userProducts";
     }
 
-    @ModelAttribute("full")
-    public List<Product> getAllProductsInf() {
-        return productRepository.findAll();
-    }
+    @GetMapping("/userProducts/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        if (productRepository.findByProductId(id).isAvailable() == true){
+            productRepository.delete(id);}
 
-    @GetMapping("/full")
-    public String showAllProducts() {
-        return "product/products";
-    }
-
-    @ModelAttribute("basket")
-    public List<Product> getAllProductsFromBasket() {
-        return productRepository.findAll();
-    }
-
-    @GetMapping("/basket")
-    public String showListFromBasket() {
-        return "product/basket";
-    }
-
-    @GetMapping("/basket/delete/{id}")
-    public String deleteProduct(@SessionAttribute("addProduct")Set<Product> adds, @PathVariable("id") Long id) {
-        adds.remove(productRepository.findOne(id));
-        return "redirect:/basket";
+        return "redirect:/userProducts";
     }
 
 }

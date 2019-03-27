@@ -4,9 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pl.natalia.simpleShop.model.Product;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findByProductId(long productId);
-    String findByUserLogin(String login);
+    List<Product> findByUserLogin(String login);
 
 }

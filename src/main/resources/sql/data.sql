@@ -8,7 +8,9 @@ INSERT INTO PRODUCTS(PRODUCT_ID, PRODUCT_NAME, DESCRIPTION, PRICE, USER_ID, AVAI
 (1, 'product1', 'description1', 10.00, 2, false),
 (2, 'product2', 'description2', 15.00, 2, true),
 (3, 'product3', 'description3', 16.00, 3, true),
-(4, 'product4', 'description4', 17.00, 4, true);
+(4, 'product4', 'description4', 17.00, 4, true),
+(5, 'product5', 'description5', 15.00, 4, false),
+(6, 'product6', 'description6', 16.00, 4, true);
 
 INSERT INTO ORDERS(ORDER_ID, ADDRESS, USER_ID, PRODUCT_ID) VALUES
 (1, 'Gdańsk', 3, 1);
