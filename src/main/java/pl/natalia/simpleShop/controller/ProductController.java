@@ -1,9 +1,11 @@
 package pl.natalia.simpleShop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import pl.natalia.simpleShop.model.Product;
 import pl.natalia.simpleShop.model.User;
@@ -23,6 +25,12 @@ public class ProductController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder){
+        StringTrimmerEditor ste = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, ste);
+    }
 
     @ModelAttribute("userProducts")
     public List<Product> getAllProducts(Authentication authentication) {
