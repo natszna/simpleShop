@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.natalia.simpleShop.model.User;
 import pl.natalia.simpleShop.repository.UserRepository;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,16 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+
+    @ModelAttribute("userName")
+    public String currentUserName(Principal principal) {
+        if (principal != null) {
+            return principal.getName();
+        }
+        return "anonymous";
+    }
+
 
     @ModelAttribute("users")
     public List<User> getAllUsers() {
@@ -66,6 +77,11 @@ public class UserController {
         user.setApproved(true);
         userRepository.save(user);
         return "redirect:/users";
+    }
+
+    @GetMapping("/login")
+    public String showLogin() {
+        return "login";
     }
 
 

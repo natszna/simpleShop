@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Login</title>
+        <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    </head>
+    <body>
+        <form th:action="@{/login}" method="post">
+            <!--/*@thymesVar id="param" type="java.util.Map"*/-->
+            <div th:if="${param['error']}" class="alert alert-error">
+                Invalid username and password.
+            </div>
+
+            <div th:if="${param['logout']}" class="alert alert-success">
+                You have been logged out.
+            </div>
+
+            <fieldset>
+                <legend>Please Login</legend>
+
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username"/>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password"/>
+
+                <button type="submit">log</button>
+            </fieldset>
+        </form>
+        <footer id="footer">© 2019 <a href="">natalia.pl</a></footer>
+    </body>
+</html>

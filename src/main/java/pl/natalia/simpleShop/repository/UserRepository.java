@@ -7,5 +7,6 @@ import pl.natalia.simpleShop.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUserId(long userId);
+    User findByLogin (String login);
 
 }
