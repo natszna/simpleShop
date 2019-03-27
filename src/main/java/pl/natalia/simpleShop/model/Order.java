@@ -8,8 +8,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "orders")
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -35,4 +33,12 @@ public class Order {
     @JoinColumn(name = "product_id", referencedColumnName = "PRODUCT_ID")
     private Product product;
 
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

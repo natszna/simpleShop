@@ -85,4 +85,23 @@ public class UserController {
     }
 
 
+    @GetMapping("/registry")
+    public String showRegistry(Map<String, Object> model) {
+        model.put("user", new User());
+        model.put("roles", User.Role.values());
+        return "user/registry";
+    }
+
+    @PostMapping("/registry")
+    public String registry(@ModelAttribute("user") User user) {
+        userRepository.save(user);
+        return "redirect:/login";
+    }
+
+    @GetMapping("/home")
+    public String showPublic() {
+        return "home";
+    }
+
+
 }

@@ -8,20 +8,19 @@
             <button th:text="#{general.add}">Add</button>
         </a></td>
         <table>
-            <caption>Users</caption>
+            <caption th:text="#{user.users}">Users</caption>
             <thead>
             <tr>
-                <th>User Id</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-                <th>Login</th>
-                <th>Password</th>
-                <th>Role</th>
-                <th>Approved</th>
+                <th th:text="#{user.userId}">Id</th>
+                <th th:text="#{user.firstname}">Firstname</th>
+                <th th:text="#{user.lastname}">Lastname</th>
+                <th th:text="#{user.email}">Email</th>
+                <th th:text="#{user.login}">Login</th>
+                <th th:text="#{user.password}">Password</th>
+                <th th:text="#{user.role}">Role</th>
+                <th th:text="#{user.approved}">Approved</th>
                 <th>Edit</th>
                 <th>Delete</th>
-
             </tr>
             </thead>
             <tbody>

@@ -8,8 +8,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "products")
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -43,4 +41,15 @@ public class Product {
 
     @OneToOne(mappedBy = "product")
     private Order order;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", available=" + available +
+                '}';
+    }
 }

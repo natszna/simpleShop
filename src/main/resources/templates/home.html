@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" th:include="layout :: master">
+<body>
+<div th:fragment="content">
+    <section>
+
+        <table>
+            <caption th:text="#{product.products}">Products</caption>
+            <thead>
+            <tr>
+                <th th:text="#{product.productId}">id</th>
+                <th th:text="#{product.productName}">name</th>
+                <th th:text="#{product.description}">opis</th>
+                <th th:text="#{product.price}">Price</th>
+                <th th:text="#{product.available}">Price</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="product : ${products}">
+                <td th:text="${product.productId}"></td>
+                <td th:text="${product.productName}"></td>
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.available}"></td>
+
+
+            </tr>
+            </tbody>
+        </table>
+
+    </section>
+</div>
+</body>
+</html>
