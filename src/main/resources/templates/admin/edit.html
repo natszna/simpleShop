@@ -5,10 +5,39 @@
 <body>
 <div th:fragment="content">
     <section>
-        <!--/*@thymesVar id="user" type="user"*/-->
-        <a action="#" th:action="@{/admin/edit/{id}}" th:object="${user}" method="put">
+        <form
+                action="#" th:action="@{/admin/edit/{id}(id=${user.userId})}" th:object="${user}" method="post">
+            <legend th:text="#{general.form}">Form</legend>
 
-        </a>
+            <input id="userId" type="hidden" th:field="*{userId}"/>
+            <fieldset>
+                <legend th:text="#{general.personal}">Personal data</legend>
+
+                <label for="firstname" th:text="#{user.firstname}">Firstname:</label>
+                <input id="firstname" type="text" th:field="*{firstname}"/><br/>
+
+                <label for="lastname" th:text="#{user.lastname}">Lastname:</label>
+                <input id="lastname" type="text" th:field="*{lastname}"/><br/>
+
+            </fieldset>
+            <input id="email" type="hidden" th:field="*{email}"/>
+            <input id="login" type="hidden" th:field="*{login}"/>
+            <input id="password" type="hidden" th:field="*{password}"/>
+
+            <fieldset>
+                <legend th:text="#{general.function}">Function</legend>
+                <label for="role" th:text="#{user.role}">role:</label>
+                <select id="role" th:field="*{role}">
+                    <option th:each="role : ${roles}" th:value="${role}" th:text="${role}">USER</option>
+                </select><br/>
+                <input type="radio" name="approved" th:value="true"/>True
+                <input type="radio" name="approved" th:value="false"/>False
+            </fieldset>
+
+            <input type="submit" value="Submit" th:value="#{general.submit}"/>
+            <input type="reset" value="Reset" th:value="#{general.reset}"/>
+        </form>
+
 
     </section>
 </div>

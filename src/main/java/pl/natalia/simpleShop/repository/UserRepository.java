@@ -8,5 +8,6 @@ import pl.natalia.simpleShop.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUserId(long userId);
     User findByLogin(String login);
+    User findByEmail(String email);
 
 }

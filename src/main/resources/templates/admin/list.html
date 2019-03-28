@@ -17,6 +17,7 @@
                 <th th:text="#{user.email}">Email</th>
                 <th th:text="#{user.login}">Login</th>
                 <th th:text="#{user.role}">Role</th>
+                <th th:text="#{user.password}">Password</th>
                 <th th:text="#{user.approved}">Approved</th>
                 <th th:text="#{general.edit}">Edit</th>
                 <th th:text="#{general.delete}">Delete</th>
@@ -31,10 +32,11 @@
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.login}"></td>
                 <td th:text="${user.role}"></td>
+                <td th:text="${user.password}"></td>
 
 
                 <td>
-                    <span th:if="${user.approved == true}">approved</span>
+                    <span th:if="${user.approved == true}">true</span>
                     <span th:unless="${user.approved == true}"><a th:href="@{/admin/approved/{id}(id=${user.userId})}">
                         <button th:text="#{general.approved}">Approved</button></a></span>
                 </td>

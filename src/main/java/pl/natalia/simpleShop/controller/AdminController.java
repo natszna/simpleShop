@@ -28,10 +28,10 @@ public class AdminController {
         dataBinder.registerCustomEditor(String.class, ste);
     }
 
-    @ModelAttribute("userName")
+    @ModelAttribute("role")
     public String currentUserName(Principal principal) {
         if (principal != null) {
-            return principal.getName();
+            return userRepository.findByLogin(principal.getName()).getRole().toString();
         }
         return "anonymous";
     }
@@ -55,17 +55,20 @@ public class AdminController {
 
     @PostMapping("/admin/add")
     public String showAddUser(@Valid @ModelAttribute("user") User user,
-                              BindingResult result, Errors errors) {
+                              BindingResult result, Errors errors,
+                              Map<String, Object> model) {
         if (result.hasErrors()){
+            model.put("roles", User.Role.values());
             return "admin/add";
-        }    if (userRepository.findByLogin(user.getEmail()) != null) {
-
+        }
+        if (userRepository.findByEmail(user.getEmail()) != null) {
             errors.rejectValue("email", "pl.natalia.simpleShop.user.Unique.message");
+            model.put("roles", User.Role.values());
             return "admin/add";
         }
         if (userRepository.findByLogin(user.getLogin()) != null) {
-
             errors.rejectValue("login", "pl.natalia.simpleShop.user.Unique.message");
+            model.put("roles", User.Role.values());
             return "admin/add";
         }
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
@@ -78,12 +81,13 @@ public class AdminController {
         User user = userRepository.findByUserId(userId);
         model.put("user", user);
         model.put("roles", User.Role.values());
-        return "admin/add";
+        return "admin/edit";
     }
 
-    @PutMapping("/admin/edit/{id}")
+    @PostMapping("/admin/edit/{id}")
     public String showEditUser(@ModelAttribute("user") User user, @PathVariable("id") long userId) {
         userRepository.findByUserId(userId);
+        userRepository.save(user);
         return "redirect:/admin";
     }
 

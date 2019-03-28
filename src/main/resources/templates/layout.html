@@ -3,27 +3,36 @@
       xmlns:th="http://www.thymeleaf.org" th:fragment="master">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Simple Shop</title>
-    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet"/>
+    <title>Wild strawberry</title>
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="/webjars/font-awesome/css/font-awesome.min.css"/>
 </head>
 <body>
 <header></header>
 <nav>
     <ul>
-        <li><a href="/user/userProducts"><i class="fa fa-contao"></i> my products</a></li>
-        <li><a href="/user/products"><i class="fa fa-contao"></i> products</a></li>
-        <li><a href="/user/basket"><i class="fa fa-contao"></i> basket</a></li>
-        <li><a href="/logout"><i class="fa fa-contao"></i> log out</a></li>
-        <li><a href="/login"><i class="fa fa-contao"></i> log</a></li>
-        <li><a href="/admin"><i class="fa fa-contao"></i> users list</a></li>
-        <li><a href="registry"><i class="fa fa-contao"></i>  registry </a></li>
-        <li><a href="/user/userOrder"><i class="fa fa-contao"></i>  orders </a></li>
-        <li><a href="/home"><i class="fa fa-contao"></i>  home dla guesta </a></li>
-        <li><a href="/user/edit"><i class="fa fa-contao"></i>  edit yourself </a></li>
+        <span th:if="${role == 'ADMIN'}">
+         <li><a href="/admin"><i class="fa fa-group"></i> users list</a></li>
+</span>
+        <span th:if="${role == 'USER' || role =='ADMIN'}">
+        <li><a href="/user/edit"><i class="fa fa-edit"></i>  edit yourself </a></li>
+        <li><a href="/user/userProducts"><i class="fa fa-list"></i> my product</a></li>
+        <li><a href="/user/products"><i class="fa fa-product-hunt"></i> products</a></li>
+        <li><a href="/user/basket"><i class="fa fa-shopping-basket"></i> basket</a></li>
+        <li><a href="/user/userOrder"><i class="fa fa-first-order"></i>  orders </a></li>
+        <li><a href="/logout"><i class="fa fa-sign-out"></i> log out</a></li>
+</span>
+
+        <span th:if="${role == 'anonymous'}">
+        <li><a href="/registry"><i class="fa fa-id-card"></i>  registry </a></li>
+        <li><a href="/login"><i class="fa fa-sign-in"></i> log</a></li>
+        <li><a href="/home"><i class="fa fa-home"></i>  home dla guesta </a></li>
+
+</span>
+
     </ul>
 </nav>
 <div th:include="this :: content"></div>
 <footer id="footer">© 2019 natalia.pl</footer>
-
 </body>
 </html>

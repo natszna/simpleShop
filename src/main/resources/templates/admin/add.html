@@ -14,13 +14,13 @@
             <fieldset>
                 <legend th:text="#{general.personal}">Personal data</legend>
 
-            <label for="firstname" th:text="#{user.firstname}">firstname:</label>
+            <label for="firstname" th:text="#{user.firstname}">Firstname:</label>
             <input id="firstname" type="text" th:field="*{firstname}"/><br/>
 
-            <label for="lastname" th:text="#{user.lastname}">lastname:</label>
+            <label for="lastname" th:text="#{user.lastname}">Lastname:</label>
             <input id="lastname" type="text" th:field="*{lastname}"/><br/>
 
-            <label for="email" th:text="#{user.email}">email:</label>
+            <label for="email" th:text="#{user.email}">Email:</label>
             <input id="email" type="text" th:field="*{email}"/>
             <label for="email"><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></label>
 
@@ -28,7 +28,7 @@
             <fieldset>
                 <legend th:text="#{general.loginData}">Login Data</legend>
 
-            <label for="password" th:text="#{user.password}">password:</label>
+            <label for="password" th:text="#{user.password}">Password:</label>
             <input id="password" type="text" th:field="*{password}"/><br/>
             <label for="password"><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></label><br/>
 
@@ -44,8 +44,8 @@
                 <option th:each="role : ${roles}" th:value="${role}" th:text="${role}">USER</option>
             </select><br/>
 
-                <input type="radio" name="approved" th:value="true"/>Tak
-                <input type="radio" name="approved" th:value="false"/>Nie
+                <input type="radio" name="approved" th:value="true"/>True
+                <input type="radio" name="approved" th:value="false"/>False
             </fieldset>
 
             <input type="submit" value="Submit" th:value="#{general.submit}"/>

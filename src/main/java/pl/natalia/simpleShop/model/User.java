@@ -1,6 +1,7 @@
 package pl.natalia.simpleShop.model;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -33,6 +34,7 @@ public class User {
     @Column(name = "lastname")
     private String lastname;
 
+    @Email
     @NotEmpty
     @Column(name = "email", unique = true, nullable = false)
     private String email;

@@ -67,11 +67,6 @@ public class UserProductController {
 
             return "user/addProduct";
         }
-        if (productRepository.findByProductName(product.getProductName()) != null) {
-
-            errors.rejectValue("productName", "pl.natalia.simpleShop.product.Unique.message");
-            return "user/addProduct";
-        }
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();
         final User user = userRepository.findByLogin(name);

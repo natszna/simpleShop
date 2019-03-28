@@ -26,11 +26,14 @@ public class UserController {
         dataBinder.registerCustomEditor(String.class, ste);
     }
 
-    @GetMapping("/login")
-    public String showLogin() {
-        return "login";
+    @ModelAttribute("role")
+    public String currentUserName(Principal principal) {
+        if (principal != null) {
+            String role =  userRepository.findByLogin(principal.getName()).getRole().toString();
+            return role;
+        }
+        return "anonymous";
     }
-
 
     @GetMapping("/user/edit")
     public String editUser(Map<String, Object> model) {
