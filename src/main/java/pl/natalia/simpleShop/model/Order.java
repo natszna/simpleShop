@@ -2,9 +2,13 @@ package pl.natalia.simpleShop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -28,10 +32,13 @@ public class Order {
     @JoinColumn(name = "user_id", referencedColumnName = "USER_ID")
     private User user;
 
-    @OneToOne
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany
     @JsonIgnore
-    @JoinColumn(name = "product_id", referencedColumnName = "PRODUCT_ID")
-    private Product product;
+    @JoinTable(name = "orders_products",
+            joinColumns = @JoinColumn(name ="order_id", referencedColumnName = "ORDER_ID"),
+            inverseJoinColumns = @JoinColumn(name="product_id", referencedColumnName = "PRODUCT_ID"))
+    private List<Product> products = new ArrayList<>();
 
 
     @Override

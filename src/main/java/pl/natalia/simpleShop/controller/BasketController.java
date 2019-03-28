@@ -5,15 +5,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import pl.natalia.simpleShop.model.Order;
 import pl.natalia.simpleShop.model.Product;
 import pl.natalia.simpleShop.model.User;
+import pl.natalia.simpleShop.repository.OrderRepository;
 import pl.natalia.simpleShop.repository.ProductRepository;
 import pl.natalia.simpleShop.repository.UserRepository;
 
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @SessionAttributes("basket")
@@ -25,6 +25,9 @@ public class BasketController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @ModelAttribute("role")
     public String currentUserRole(Principal principal) {
@@ -82,5 +85,30 @@ public class BasketController {
         return "user/products";
     }
 
+    @GetMapping("/orderForm")
+    public String addOrder(Map<String, Object> model) {
+        model.put("order", new Order());
+        return "order/orderForm";
+    }
+
+    @PostMapping("/orderForm")
+    public String showAddOrder(@ModelAttribute("order") Order order,
+                               Map<String, Object> model,
+                               @SessionAttribute("basket") Set<Product> basket) {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final String name = authentication.getName();
+        final User user = userRepository.findByLogin(name);
+        order.setUser(user);
+        order.setProducts(new ArrayList<>(basket));
+        for (Product product :
+                new ArrayList<>(basket) ) {
+            product.setAvailable(false);
+            productRepository.save(product);
+        }
+        basket.clear();
+
+        orderRepository.save(order);
+        return "redirect:/user/userOrder";
+    }
 
 }

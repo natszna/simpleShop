@@ -11,8 +11,8 @@
             <tr>
                 <th th:text="#{order.orderId}">Id</th>
                 <th th:text="#{order.address}">Address</th>
-                <th th:text="#{order.product}">Product Id</th>
                 <th th:text="#{order.user}">User</th>
+                <th th:text="#{order.product}">Products</th>
 
             </tr>
             </thead>
@@ -21,8 +21,10 @@
             <tr th:each="order : ${userOrder}">
                 <td th:text="${order.orderId}"></td>
                 <td th:text="${order.address}"></td>
-                <td th:text="${order.product.productName}"></td>
                 <td th:text="${order.user.login}"></td>
+                <td> <li th:each="product : ${order.products}"
+                         th:text="${product.productName}"></li>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -42,8 +42,8 @@ public class Product {
     @Column(name="available")
     private boolean available;
 
-    @OneToOne(mappedBy = "product")
-    private Order order;
+//    @ManyToOne(mappedBy = "products")
+//    private Order order;
 
 
     @Override

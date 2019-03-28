@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" th:include="layout :: master">
+
+<body>
+<div th:fragment="content">
+    <section>
+        <!--/*@thymesVar id="order" type="order"*/-->
+        <form
+                action="#" th:action="@{/user/orderForm}" th:object="${order}" method="post">
+            <legend th:text="#{general.form}">Form</legend>
+
+            <!--<label for="orderId" th:text="#{order.orderId}"></label>-->
+            <input id="userId" type="hidden" th:field="*{orderId}"/>
+            <fieldset>
+                <label for="address" th:text="#{order.address}">address:</label>
+                <input id="address" type="text" th:field="*{address}"/><br/>
+
+            </fieldset>
+
+            <input type="submit" value="Submit" th:value="#{general.submit}"/>
+            <input type="reset" value="Reset" th:value="#{general.reset}"/>
+        </form>
+
+
+    </section>
+</div>
+</body>
+</html>

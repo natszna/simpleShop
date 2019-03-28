@@ -39,7 +39,7 @@ public class OrderController {
 
     @GetMapping("/userOrder")
     public String showUserOrders() {
-        return "user/orderList";
+        return "order/orderList";
     }
 
 

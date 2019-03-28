@@ -1,6 +1,8 @@
 package pl.natalia.simpleShop.model;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -54,10 +56,12 @@ public class User {
     @Column(name = "approved")
     private boolean approved;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "user")
     private List<Product> products = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
 
 
