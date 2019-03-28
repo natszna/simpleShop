@@ -1,4 +1,4 @@
-package pl.natalia.simpleShop.controller;
+package pl.natalia.simpleShop.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -16,7 +16,6 @@ import pl.natalia.simpleShop.repository.UserRepository;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -32,16 +31,11 @@ public class GuestController {
     }
 
     @ModelAttribute("role")
-    public String currentUserName(Principal principal) {
+    public String currentUserRole(Principal principal) {
         if (principal != null) {
             return userRepository.findByLogin(principal.getName()).getRole().toString();
         }
         return "anonymous";
-    }
-
-    @ModelAttribute("guest")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
     }
 
     @GetMapping("/login")

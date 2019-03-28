@@ -1,4 +1,4 @@
-package pl.natalia.simpleShop.controller;
+package pl.natalia.simpleShop.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -11,10 +11,10 @@ import pl.natalia.simpleShop.model.User;
 import pl.natalia.simpleShop.repository.UserRepository;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -27,15 +27,14 @@ public class UserController {
     }
 
     @ModelAttribute("role")
-    public String currentUserName(Principal principal) {
+    public String currentUserRole(Principal principal) {
         if (principal != null) {
-            String role =  userRepository.findByLogin(principal.getName()).getRole().toString();
-            return role;
+            return userRepository.findByLogin(principal.getName()).getRole().toString();
         }
         return "anonymous";
     }
 
-    @GetMapping("/user/edit")
+    @GetMapping("/edit")
     public String editUser(Map<String, Object> model) {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();
@@ -45,7 +44,7 @@ public class UserController {
         return  "user/edit";
     }
 
-    @PostMapping("/user/edit")
+    @PostMapping("/edit")
     public String showEditUser(@ModelAttribute("user") User user) {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();

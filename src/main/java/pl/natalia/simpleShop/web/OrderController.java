@@ -1,4 +1,4 @@
-package pl.natalia.simpleShop.controller;
+package pl.natalia.simpleShop.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

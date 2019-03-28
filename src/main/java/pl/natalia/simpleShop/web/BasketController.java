@@ -1,4 +1,4 @@
-package pl.natalia.simpleShop.controller;
+package pl.natalia.simpleShop.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -71,7 +71,7 @@ public class BasketController {
     }
 
     @GetMapping("/basket/delete/{id}")
-    public String deleteProduct(@SessionAttribute("basket") Set<Product> basket, @PathVariable("id") Long productId) {
+    public String deleteProductFromBasket(@SessionAttribute("basket") Set<Product> basket, @PathVariable("id") Long productId) {
         basket.remove(productRepository.findOne(productId));
         return "redirect:/user/basket";
     }
@@ -93,7 +93,6 @@ public class BasketController {
 
     @PostMapping("/orderForm")
     public String showAddOrder(@ModelAttribute("order") Order order,
-                               Map<String, Object> model,
                                @SessionAttribute("basket") Set<Product> basket) {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();

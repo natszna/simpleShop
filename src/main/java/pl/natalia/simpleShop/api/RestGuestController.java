@@ -10,14 +10,14 @@ import pl.natalia.simpleShop.repository.ProductRepository;
 import java.util.List;
 
 @RestController
-@RequestMapping ("/api")
+@RequestMapping("/api")
 public class RestGuestController {
 
     @Autowired
     private ProductRepository productRepository;
 
     @GetMapping("/home")
-    public List<Product> listAllUsers() {
+    public List<Product> listAllProducts() {
         return productRepository.findAllByAvailable(true);
     }
 

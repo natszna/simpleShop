@@ -6,6 +6,6 @@ import pl.natalia.simpleShop.model.Order;
 import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    Order findByOrderId(long orderId);
     List<Order> findByUserLogin(String login);
+    List<Order> findByUserUserId(long userId);
 }

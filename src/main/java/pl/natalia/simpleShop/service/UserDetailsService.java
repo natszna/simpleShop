@@ -1,4 +1,4 @@
-package pl.natalia.simpleShop.security;
+package pl.natalia.simpleShop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.natalia.simpleShop.model.User;
 import pl.natalia.simpleShop.repository.UserRepository;
+import pl.natalia.simpleShop.security.UserPrincipal;
 
 @Service
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {

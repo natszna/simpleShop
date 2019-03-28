@@ -1,4 +1,4 @@
-package pl.natalia.simpleShop.controller;
+package pl.natalia.simpleShop.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -35,7 +35,7 @@ public class UserProductController {
     }
 
     @ModelAttribute("role")
-    public String currentUserName(Principal principal) {
+    public String currentUserRole(Principal principal) {
         if (principal != null) {
             return userRepository.findByLogin(principal.getName()).getRole().toString();
         }

@@ -15,6 +15,8 @@ import java.util.Objects;
 @Table(name = "orders")
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(of = {"user", "products"})
+@EqualsAndHashCode
 @Getter
 @Setter
 public class Order {
@@ -40,26 +42,4 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name="product_id", referencedColumnName = "PRODUCT_ID"))
     private List<Product> products = new ArrayList<>();
 
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderId=" + orderId +
-                ", address='" + address + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return orderId == order.orderId &&
-                Objects.equals(address, order.address);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(orderId, address);
-    }
 }

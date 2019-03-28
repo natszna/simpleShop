@@ -1,4 +1,4 @@
-package pl.natalia.simpleShop.controller;
+package pl.natalia.simpleShop.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ public class GuestProductController {
     private UserRepository userRepository;
 
     @ModelAttribute("role")
-    public String currentUserName(Principal principal) {
+    public String currentUserRole(Principal principal) {
         if (principal != null) {
 
             String role =  userRepository.findByLogin(principal.getName()).getRole().toString();

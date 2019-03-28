@@ -12,21 +12,21 @@
 <nav>
     <ul>
         <span th:if="${role == 'ADMIN'}">
-         <li><a href="/admin"><i class="fa fa-group"></i> users list</a></li>
+        <li><a href="/admin"><i class="fa fa-group" th:text="#{general.usersList}"></i></a></li>
 </span>
         <span th:if="${role == 'USER' || role =='ADMIN'}">
-        <li><a href="/user/edit"><i class="fa fa-edit"></i>  edit yourself </a></li>
-        <li><a href="/user/userProducts"><i class="fa fa-list"></i> my product</a></li>
-        <li><a href="/user/products"><i class="fa fa-product-hunt"></i> products</a></li>
-        <li><a href="/user/basket"><i class="fa fa-shopping-basket"></i> basket</a></li>
-        <li><a href="/user/userOrder"><i class="fa fa-first-order"></i>  orders </a></li>
-        <li><a href="/logout"><i class="fa fa-sign-out"></i> log out</a></li>
+        <li><a href="/user/edit"><i class="fa fa-edit" th:text="#{general.editYourself}"></i></a></li>
+        <li><a href="/user/userProducts"><i class="fa fa-list" th:text="#{general.myProducts}"></i></a></li>
+        <li><a href="/user/products"><i class="fa fa-product-hunt" th:text="#{general.products}"></i></a></li>
+        <li><a href="/user/basket"><i class="fa fa-shopping-basket" th:text="#{general.basket}"></i></a></li>
+        <li><a href="/user/userOrder"><i class="fa fa-first-order" th:text="#{general.orders}"></i></a></li>
+        <li><a href="/logout"><i class="fa fa-sign-out" th:text="#{general.logout}"></i></a></li>
 </span>
 
         <span th:if="${role == 'anonymous'}">
-        <li><a href="/registry"><i class="fa fa-id-card"></i>  registry </a></li>
-        <li><a href="/login"><i class="fa fa-sign-in"></i> log</a></li>
-        <li><a href="/home"><i class="fa fa-home"></i>  home dla guesta </a></li>
+        <li><a href="/home"><i class="fa fa-home" th:text="#{general.home}"></i></a></li>
+        <li><a href="/registry"><i class="fa fa-id-card" th:text="#{general.registry}"></i></a></li>
+        <li><a href="/login"><i class="fa fa-sign-in" th:text="#{general.log}"></i></a></li>
 
 </span>
 

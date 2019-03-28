@@ -1,4 +1,4 @@
-package pl.natalia.simpleShop.controller;
+package pl.natalia.simpleShop.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import pl.natalia.simpleShop.model.User;
+import pl.natalia.simpleShop.repository.OrderRepository;
 import pl.natalia.simpleShop.repository.ProductRepository;
 import pl.natalia.simpleShop.repository.UserRepository;
 
@@ -27,6 +28,9 @@ public class AdminController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     @InitBinder
     public void initBinder(WebDataBinder dataBinder){
         StringTrimmerEditor ste = new StringTrimmerEditor(true);
@@ -34,7 +38,7 @@ public class AdminController {
     }
 
     @ModelAttribute("role")
-    public String currentUserName(Principal principal) {
+    public String currentUserRole(Principal principal) {
         if (principal != null) {
             return userRepository.findByLogin(principal.getName()).getRole().toString();
         }
@@ -98,7 +102,7 @@ public class AdminController {
 
     @GetMapping("/admin/delete/{id}")
     public String DeleteUser(@PathVariable("id") Long userId) {
-        if (productRepository.findByUserUserId(userId).isEmpty()){
+        if (productRepository.findByUserUserId(userId).isEmpty() && orderRepository.findByUserUserId(userId).isEmpty()){
             userRepository.delete(userId);}
         return "redirect:/admin";
     }

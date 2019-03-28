@@ -45,7 +45,7 @@
 
         <aside id="product">
             <ul>
-                <!--/*@thymesVar id="basket" type="java.util.Set<pl.SznaKuKZie.project.product.model.Product>"*/-->
+                <!--/*@thymesVar id="basket" type="java.util.Set<pl.natalia.simpleShop.product.model.Product>"*/-->
                 <li th:each="product : ${basket}" th:text="${product.productName}">name</li>
             </ul>
         </aside>
