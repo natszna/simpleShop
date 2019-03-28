@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import pl.natalia.simpleShop.model.User;
 import pl.natalia.simpleShop.repository.UserRepository;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +54,20 @@ public class AdminController {
     }
 
     @PostMapping("/admin/add")
-    public String showAddUser(@ModelAttribute("user") User user) {
+    public String showAddUser(@Valid @ModelAttribute("user") User user,
+                              BindingResult result, Errors errors) {
+        if (result.hasErrors()){
+            return "admin/add";
+        }    if (userRepository.findByLogin(user.getEmail()) != null) {
+
+            errors.rejectValue("email", "pl.natalia.simpleShop.user.Unique.message");
+            return "admin/add";
+        }
+        if (userRepository.findByLogin(user.getLogin()) != null) {
+
+            errors.rejectValue("login", "pl.natalia.simpleShop.user.Unique.message");
+            return "admin/add";
+        }
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
         return "redirect:/admin";

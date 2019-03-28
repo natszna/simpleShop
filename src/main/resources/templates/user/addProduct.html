@@ -15,14 +15,15 @@
                 <legend th:text="#{general.aboutProduct}">About Product</legend>
             <label for="productName" th:text="#{product.productName}">productName:</label>
             <input id="productName" type="text" th:field="*{productName}"/><br/>
+            <label for="productName"><span th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></span></label>
 
             <label for="description" th:text="#{product.description}">description:</label>
             <input id="description" type="text" th:field="*{description}"/><br/>
 
             <label for="price" th:text="#{product.price}">price:</label>
             <input id="price" type="text" th:field="*{price}"/>
-                </fieldset>
-
+                <label for="price"><span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span></label>
+            </fieldset>
                 <fieldset>
                     <legend th:text="#{product.available}">Available</legend>
 

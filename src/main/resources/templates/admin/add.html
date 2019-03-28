@@ -22,15 +22,19 @@
 
             <label for="email" th:text="#{user.email}">email:</label>
             <input id="email" type="text" th:field="*{email}"/>
+            <label for="email"><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></label>
+
             </fieldset>
             <fieldset>
                 <legend th:text="#{general.loginData}">Login Data</legend>
 
             <label for="password" th:text="#{user.password}">password:</label>
             <input id="password" type="text" th:field="*{password}"/><br/>
+            <label for="password"><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></label><br/>
 
             <label for="login" th:text="#{user.login}">login:</label>
             <input id="login" type="text" th:field="*{login}"/>
+            <label for="login"><span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span></label>
 
             </fieldset>
             <fieldset>

@@ -23,7 +23,7 @@ public class Product {
     private long productId;
 
     @NotEmpty
-    @Column(name = "product_name")
+    @Column(name = "product_name", unique = true, nullable = false)
     private String productName;
 
     @Column(name = "description")

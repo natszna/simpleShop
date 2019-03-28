@@ -31,15 +31,20 @@
                 <td th:text="${product.price}"></td>
                 <td>
                     <span th:if="${product.available == false}">false</span>
-                    <span th:unless="${product.available == false}">true<a th:href="@{/userProducts/edit/{id}(id=${product.productId})}">
-                        </a></span>
+                    <span th:unless="${product.available == false}">true</span>
                 </td>
-                <td><a th:href="@{/user/userProducts/delete/{id}(id=${product.productId})}">
+                <td>
+                    <span th:if="${product.available == false}"></span>
+                    <span th:unless="${product.available == false}"><a th:href="@{/user/userProducts/delete/{id}(id=${product.productId})}">
                     <button th:text="#{general.deleteMyProduct}">Delete</button>
-                </a></td>
-                <td><a th:href="@{/user/userProducts/edit/{id}(id=${product.productId})}">
+                </a></span>
+                </td>
+                <td>
+                    <span th:if="${product.available == false}"></span>
+                    <span th:unless="${product.available == false}"><a th:href="@{/user/userProducts/edit/{id}(id=${product.productId})}">
                     <button th:text="#{general.edit}">Edit</button>
-                </a></td>
+                </a></span>
+                </td>
             </tr>
             </tbody>
         </table>

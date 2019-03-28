@@ -5,6 +5,8 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import pl.natalia.simpleShop.model.Product;
@@ -12,6 +14,7 @@ import pl.natalia.simpleShop.model.User;
 import pl.natalia.simpleShop.repository.ProductRepository;
 import pl.natalia.simpleShop.repository.UserRepository;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +62,16 @@ public class UserProductController {
     }
 
     @PostMapping("/userProducts/addProduct")
-    public String showAddProduct(@ModelAttribute("product") Product product) {
+    public String showAddProduct(@Valid @ModelAttribute("product") Product product, BindingResult result, Errors errors ) {
+        if (result.hasErrors()){
+
+            return "user/addProduct";
+        }
+        if (productRepository.findByProductName(product.getProductName()) != null) {
+
+            errors.rejectValue("productName", "pl.natalia.simpleShop.product.Unique.message");
+            return "user/addProduct";
+        }
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();
         final User user = userRepository.findByLogin(name);
