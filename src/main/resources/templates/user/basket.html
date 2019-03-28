@@ -29,7 +29,7 @@
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.available}"></td>
                 <td th:text="${product.user.login}"></td>
-                <td><a th:href="@{/basket/delete/{id}(id=${product.productId})}">
+                <td><a th:href="@{/user/basket/delete/{id}(id=${product.productId})}">
                     <button th:text="#{general.deleteProduct}">Delete Product</button>
                 </a></td>
 

@@ -20,13 +20,14 @@
             <tbody>
 
             <tr th:each="product : ${products}">
+                <span th:if="${product.available == true}">
                 <td th:text="${product.productId}"></td>
                 <td th:text="${product.productName}"></td>
                 <td th:text="${product.description}"></td>
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.available}"></td>
 
-
+                </span>
             </tr>
             </tbody>
         </table>

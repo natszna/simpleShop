@@ -32,7 +32,7 @@
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.available}"></td>
                 <td th:text="${product.user.login}"></td>
-                <td><a th:href="@{/products/add/{id}(id=${product.productId})}"><button th:text="#{general.addProduct}">Add Product</button></a> </td>
+                <td><a th:href="@{/user/products/add/{id}(id=${product.productId})}"><button th:text="#{general.addProduct}">Add Product</button></a> </td>
                     </span>
             </tr>
             </tbody>
