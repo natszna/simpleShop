@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Controller
-public class ProductController {
+public class UserProductController {
 
     @Autowired
     private ProductRepository productRepository;
@@ -30,6 +30,17 @@ public class ProductController {
     public void initBinder(WebDataBinder dataBinder){
         StringTrimmerEditor ste = new StringTrimmerEditor(true);
         dataBinder.registerCustomEditor(String.class, ste);
+    }
+
+    @ModelAttribute("allProducts")
+    public List<Product> getAllProductsInf() {
+
+        return productRepository.findAll();
+    }
+
+    @GetMapping("/products")
+    public String showAllProducts() {
+        return "user/products";
     }
 
     @ModelAttribute("userProducts")

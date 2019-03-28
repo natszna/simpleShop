@@ -32,19 +32,6 @@ public class UserController {
     }
 
 
-    @GetMapping("/registry")
-    public String registryUser(Map<String, Object> model) {
-        model.put("user", new User());
-        model.put("roles", User.Role.values());
-        return "user/registry";
-    }
-
-    @PostMapping("/registry")
-    public String showRegistryUser(@ModelAttribute("user") User user) {
-        userRepository.save(user);
-        return "redirect:/login";
-    }
-
     @GetMapping("/user/edit")
     public String editMysefl(Map<String, Object> model) {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

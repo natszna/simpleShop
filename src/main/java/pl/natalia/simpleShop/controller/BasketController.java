@@ -59,27 +59,4 @@ public class BasketController {
         basket.remove(productRepository.findOne(productId));
         return "redirect:/basket";
     }
-
-    @ModelAttribute("products")
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
-
-    @GetMapping("/products")
-    public String showList() {
-        return "home";
-    }
-
-    @ModelAttribute("full")
-    public List<Product> getAllProductsInf() {
-
-        return productRepository.findAll();
-    }
-
-    @GetMapping("/full")
-    public String showAllProducts() {
-        return "product/products";
-    }
-
-
 }
