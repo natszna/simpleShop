@@ -10,6 +10,7 @@ import pl.natalia.simpleShop.model.User;
 import pl.natalia.simpleShop.repository.ProductRepository;
 import pl.natalia.simpleShop.repository.UserRepository;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +25,22 @@ public class BasketController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @ModelAttribute("role")
+    public String currentUserRole(Principal principal) {
+        if (principal != null) {
+            return userRepository.findByLogin(principal.getName()).getRole().toString();
+        }
+        return "anonymous";
+    }
+
+    @ModelAttribute("login")
+    public String currentLogin(Principal principal) {
+        if (principal != null) {
+            return principal.getName();
+        }
+        return "anonymous";
+    }
 
     @ModelAttribute("basket")
     public Set<Product> addProductToBasket() {
@@ -43,11 +60,6 @@ public class BasketController {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();
         return userRepository.findByLogin(name);
-    }
-
-    @ModelAttribute("basket")
-    public List<Product> getAllProductsFromBasket() {
-        return productRepository.findAll();
     }
 
     @GetMapping("/basket")

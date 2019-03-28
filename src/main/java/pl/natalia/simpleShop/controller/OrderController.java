@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.natalia.simpleShop.model.Order;
 import pl.natalia.simpleShop.repository.OrderRepository;
+import pl.natalia.simpleShop.repository.UserRepository;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -16,6 +18,17 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @ModelAttribute("role")
+    public String currentUserName(Principal principal) {
+        if (principal != null) {
+            return userRepository.findByLogin(principal.getName()).getRole().toString();
+        }
+        return "anonymous";
+    }
 
     @ModelAttribute("userOrder")
     public List<Order> getUserOrders(Authentication authentication) {

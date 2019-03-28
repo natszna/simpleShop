@@ -15,6 +15,7 @@ import pl.natalia.simpleShop.repository.ProductRepository;
 import pl.natalia.simpleShop.repository.UserRepository;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,14 @@ public class UserProductController {
     public void initBinder(WebDataBinder dataBinder){
         StringTrimmerEditor ste = new StringTrimmerEditor(true);
         dataBinder.registerCustomEditor(String.class, ste);
+    }
+
+    @ModelAttribute("role")
+    public String currentUserName(Principal principal) {
+        if (principal != null) {
+            return userRepository.findByLogin(principal.getName()).getRole().toString();
+        }
+        return "anonymous";
     }
 
 
