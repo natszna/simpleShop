@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import pl.natalia.simpleShop.model.User;
+import pl.natalia.simpleShop.repository.ProductRepository;
 import pl.natalia.simpleShop.repository.UserRepository;
 
 import javax.validation.Valid;
@@ -19,8 +20,12 @@ import java.util.Map;
 
 @Controller
 public class AdminController {
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @InitBinder
     public void initBinder(WebDataBinder dataBinder){
@@ -93,7 +98,8 @@ public class AdminController {
 
     @GetMapping("/admin/delete/{id}")
     public String DeleteUser(@PathVariable("id") Long userId) {
-        userRepository.delete(userId);
+        if (productRepository.findByUserUserId(userId).isEmpty()){
+            userRepository.delete(userId);}
         return "redirect:/admin";
     }
 
