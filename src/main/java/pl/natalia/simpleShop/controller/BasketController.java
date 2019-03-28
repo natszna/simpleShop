@@ -16,6 +16,7 @@ import java.util.Set;
 
 @Controller
 @SessionAttributes("basket")
+@RequestMapping("/user")
 public class BasketController {
 
     @Autowired
@@ -31,11 +32,11 @@ public class BasketController {
 
     @GetMapping("/products/add/{id}")
     public String showAddProductToBasket(@SessionAttribute("basket") Set<Product> basket, @PathVariable("id") Long productId) {
-        boolean userVerification = showAuthentication().getLogin().equals(productRepository.findByProductId(productId).getUser().getLogin());
-        if (userVerification == false){
-        basket.add(productRepository.findOne(productId));
+        boolean userWerification = showAuthentication().getLogin().equals(productRepository.findByProductId(productId).getUser().getLogin());
+        if (userWerification == false) {
+            basket.add(productRepository.findOne(productId));
         }
-        return "redirect:/full";
+        return "redirect:/products";
     }
 
     public User showAuthentication() {
@@ -51,7 +52,7 @@ public class BasketController {
 
     @GetMapping("/basket")
     public String showListFromBasket() {
-        return "product/basket";
+        return "user/basket";
     }
 
     @GetMapping("/basket/delete/{id}")
@@ -59,4 +60,16 @@ public class BasketController {
         basket.remove(productRepository.findOne(productId));
         return "redirect:/basket";
     }
+    @ModelAttribute("products")
+    public List<Product> getAllProductsInf() {
+
+        return productRepository.findAll();
+    }
+
+    @GetMapping("/products")
+    public String showAllProducts() {
+        return "user/products";
+    }
+
+
 }

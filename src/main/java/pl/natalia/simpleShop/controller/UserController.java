@@ -46,6 +46,6 @@ public class UserController {
     @PutMapping("/user/edit/{id}")
     public String showEditMyself(@ModelAttribute("user") User user, @PathVariable("id") long userId) {
         userRepository.findByUserId(userId);
-        return "redirect:/full";
+        return "redirect:/products";
     }
 }

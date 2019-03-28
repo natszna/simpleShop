@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Controller
+@RequestMapping("/user")
 public class UserProductController {
 
     @Autowired
@@ -32,16 +33,6 @@ public class UserProductController {
         dataBinder.registerCustomEditor(String.class, ste);
     }
 
-    @ModelAttribute("allProducts")
-    public List<Product> getAllProductsInf() {
-
-        return productRepository.findAll();
-    }
-
-    @GetMapping("/products")
-    public String showAllProducts() {
-        return "user/products";
-    }
 
     @ModelAttribute("userProducts")
     public List<Product> getAllProducts(Authentication authentication) {
@@ -51,7 +42,7 @@ public class UserProductController {
 
     @GetMapping("/userProducts")
     public String showUserProducts() {
-        return "product/userProducts";
+        return "user/userProducts";
     }
 
     @GetMapping("/userProducts/delete/{id}")
@@ -64,7 +55,7 @@ public class UserProductController {
     @GetMapping("/userProducts/addProduct")
     public String addProduct(Map<String, Object> model2) {
         model2.put("product", new Product());
-        return "product/addProduct";
+        return "user/addProduct";
     }
 
     @PostMapping("/userProducts/addProduct")
@@ -83,7 +74,7 @@ public class UserProductController {
         if (product.isAvailable() == true) {
             model2.put("product", product);
         }
-        return "product/addProduct";
+        return "user/addProduct";
     }
 
     @PutMapping("/userProducts/edit/{id}")
