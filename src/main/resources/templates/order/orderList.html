@@ -18,7 +18,7 @@
             </thead>
             <tbody>
 
-            <tr th:each="order : ${orders}">
+            <tr th:each="order : ${userOrder}">
                 <td th:text="${order.orderId}"></td>
                 <td th:text="${order.address}"></td>
                 <td th:text="${order.product.productName}"></td>

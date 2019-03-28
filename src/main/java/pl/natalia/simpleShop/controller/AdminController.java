@@ -2,6 +2,7 @@ package pl.natalia.simpleShop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +52,7 @@ public class AdminController {
 
     @PostMapping("/admin/add")
     public String showAddUser(@ModelAttribute("user") User user) {
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
         return "redirect:/admin";
     }

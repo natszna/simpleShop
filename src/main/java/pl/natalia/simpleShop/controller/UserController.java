@@ -33,19 +33,22 @@ public class UserController {
 
 
     @GetMapping("/user/edit")
-    public String editMysefl(Map<String, Object> model) {
+    public String editUser(Map<String, Object> model) {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();
 
         User user = userRepository.findByLogin(name);
         model.put("user", user);
-        model.put("roles", User.Role.values());
-        return "user/add";
+        return  "user/edit";
     }
 
-    @PutMapping("/user/edit/{id}")
-    public String showEditMyself(@ModelAttribute("user") User user, @PathVariable("id") long userId) {
-        userRepository.findByUserId(userId);
-        return "redirect:/products";
+    @PostMapping("/user/edit")
+    public String showEditUser(@ModelAttribute("user") User user) {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final String name = authentication.getName();
+        user.setRole(userRepository.findByLogin(name).getRole());
+        userRepository.save(user);
+        return "redirect:/user/products";
     }
+
 }
