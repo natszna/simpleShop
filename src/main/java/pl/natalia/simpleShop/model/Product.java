@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -28,6 +29,7 @@ public class Product {
     @Column(name = "description")
     private String description;
 
+    @NotNull
     @DecimalMin(value = "0.1")
     @Column(name = "price")
     private BigDecimal price;

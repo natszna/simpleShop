@@ -6,7 +6,7 @@
 <div th:fragment="content">
     <section>
         <form
-                action="#" th:action="@{/userProducts/addProduct}" th:object="${product}" method="post">
+                action="#" th:action="@{/user/userProducts/addProduct}" th:object="${product}" method="post">
             <legend th:text="#{general.form}">Form</legend>
 
             <!--<label for="productId" th:text="#{product.productId}"></label>-->
@@ -27,10 +27,9 @@
                     <legend th:text="#{product.available}">Available</legend>
 
             <label for="available" th:text="#{product.available}">available:</label>
-            <input id="available" type="radio" name="available" th:value="#{general.true}"/>true
-            <input id="available" type="radio" name="available" th:value="#{general.false}"/>false
+                    <input id="available" type="radio" name="available" th:value="true"/>true
+                    <input id="available" type="radio" name="available" th:value="false"/>false
                 </fieldset>
-
             <input type="submit" value="Submit" th:value="#{general.submit}"/>
             <input type="reset" value="Reset" th:value="#{general.reset}"/>
         </form>

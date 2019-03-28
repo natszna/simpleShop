@@ -4,7 +4,7 @@
 <body>
 <div th:fragment="content">
     <section>
-        <td><a th:href="@{/userProducts/addProduct}">
+        <td><a th:href="@{/user/userProducts/addProduct}">
             <button th:text="#{general.add}">Add</button>
         </a></td>
         <table>
@@ -34,16 +34,16 @@
                     <span th:unless="${product.available == false}">true<a th:href="@{/userProducts/edit/{id}(id=${product.productId})}">
                         </a></span>
                 </td>
-                <td><a th:href="@{/userProducts/delete/{id}(id=${product.productId})}">
+                <td><a th:href="@{/user/userProducts/delete/{id}(id=${product.productId})}">
                     <button th:text="#{general.deleteMyProduct}">Delete</button>
                 </a></td>
-                <td><a th:href="@{/userProducts/edit/{id}(id=${product.productId})}">
+                <td><a th:href="@{/user/userProducts/edit/{id}(id=${product.productId})}">
                     <button th:text="#{general.edit}">Edit</button>
                 </a></td>
             </tr>
             </tbody>
         </table>
-        <td><a th:href="@{/userProducts/addProduct}">
+        <td><a th:href="@{/user/userProducts/addProduct}">
             <button th:text="#{general.add}">Add</button>
         </a></td>
     </section>

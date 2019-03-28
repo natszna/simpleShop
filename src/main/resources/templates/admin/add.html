@@ -40,8 +40,8 @@
                 <option th:each="role : ${roles}" th:value="${role}" th:text="${role}">USER</option>
             </select><br/>
 
-            <input type="radio" name="approved" th:value="#{general.true}"/>Approved
-            <input type="radio" name="approved" th:value="#{general.false}"/>False
+                <input type="radio" name="approved" th:value="true"/>Tak
+                <input type="radio" name="approved" th:value="false"/>Nie
             </fieldset>
 
             <input type="submit" value="Submit" th:value="#{general.submit}"/>

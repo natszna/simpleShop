@@ -49,7 +49,7 @@ public class UserProductController {
     public String deleteProduct(@PathVariable("id") Long productId) {
         if (productRepository.findByProductId(productId).isAvailable() == true){
             productRepository.delete(productId);}
-        return "redirect:/userProducts";
+        return "redirect:/user/userProducts";
     }
 
     @GetMapping("/userProducts/addProduct")
@@ -65,7 +65,7 @@ public class UserProductController {
         final User user = userRepository.findByLogin(name);
         product.setUser(user);
         productRepository.save(product);
-        return "redirect:/userProducts";
+        return "redirect:/user/userProducts";
     }
 
     @GetMapping("/userProducts/edit/{id}")
@@ -80,6 +80,6 @@ public class UserProductController {
     @PutMapping("/userProducts/edit/{id}")
         public String showEditProduct(@ModelAttribute("product") Product product, @PathVariable("id") long productId) {
             productRepository.findByProductId(productId);
-            return "redirect:/userProducts";
+            return "redirect:/user/userProducts";
     }
 }
