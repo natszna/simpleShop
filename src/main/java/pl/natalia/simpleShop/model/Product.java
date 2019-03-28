@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -41,6 +42,11 @@ public class Product {
 
     @Column(name="available")
     private boolean available;
+
+    //    @DateTimeFormat(pattern = "dd/mm/yyyy")
+    @Column(name = "add_date")
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
 //    @ManyToOne(mappedBy = "products")
 //    private Order order;

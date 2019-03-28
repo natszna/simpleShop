@@ -15,6 +15,7 @@
                 <th th:text="#{product.price}">Price</th>
                 <th th:text="#{product.available}">Available</th>
                 <th th:text="#{product.user}">User</th>
+                <th th:text="#{product.date}">Date</th>
                 <th th:text="#{general.addProduct}">Add Product</th>
 
 
@@ -32,6 +33,7 @@
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.available}"></td>
                 <td th:text="${product.user.login}"></td>
+                <td th:text="${product.date}"></td>
                 <td th:if="${login != product.user.login}">
                     <a th:href="@{/user/products/add/{id}(id=${product.productId})}">
                         <button th:text="#{general.addProduct}">Add Product</button></a>

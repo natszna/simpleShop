@@ -16,10 +16,7 @@ import pl.natalia.simpleShop.repository.UserRepository;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -79,6 +76,7 @@ public class UserProductController {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();
         final User user = userRepository.findByLogin(name);
+        product.setDate(new Date());
         product.setUser(user);
         productRepository.save(product);
         return "redirect:/user/userProducts";
