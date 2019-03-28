@@ -50,7 +50,6 @@ public class User {
     @Column(name = "role")
     private Role role;
 
-    @NotEmpty
     @Column(name = "approved")
     private boolean approved;
 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" th:include="layout :: master">
+<body>
+<div th:fragment="content">
+    <section>
+        <td><a th:href="@{/admin/add}">
+            <button th:text="#{general.add}">Add</button>
+        </a></td>
+        <table>
+            <caption th:text="#{user.users}">Users</caption>
+            <thead>
+            <tr>
+                <th th:text="#{user.userId}">Id</th>
+                <th th:text="#{user.firstname}">Firstname</th>
+                <th th:text="#{user.lastname}">Lastname</th>
+                <th th:text="#{user.email}">Email</th>
+                <th th:text="#{user.login}">Login</th>
+                <th th:text="#{user.password}">Password</th>
+                <th th:text="#{user.role}">Role</th>
+                <th th:text="#{user.approved}">Approved</th>
+                <th th:text="#{general.edit}">Edit</th>
+                <th th:text="#{general.delete}">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="user : ${admin}">
+                <td th:text="${user.userId}"></td>
+                <td th:text="${user.firstname}"></td>
+                <td th:text="${user.lastname}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.login}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.role}"></td>
+
+
+                <td>
+                    <span th:if="${user.approved == true}">approved</span>
+                    <span th:unless="${user.approved == true}"><a th:href="@{/admin/approved/{id}(id=${user.userId})}">
+                        <button th:text="#{general.approved}">Approved</button></a></span>
+                </td>
+
+                <td><a th:href="@{/admin/edit/{id}(id=${user.userId})}">
+                    <button th:text="#{general.edit}">Edit</button>
+                </a></td>
+                <td><a th:href="@{/admin/delete/{id}(id=${user.userId})}">
+                    <button th:text="#{general.delete}">Delete</button>
+                </a></td>
+            </tr>
+            </tbody>
+        </table>
+        <td><a th:href="@{/admin/add}">
+            <button th:text="#{general.add}">Add</button>
+        </a></td>
+    </section>
+</div>
+</body>
+</html>

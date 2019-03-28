@@ -31,8 +31,8 @@ public class BasketController {
 
     @GetMapping("/products/add/{id}")
     public String showAddProductToBasket(@SessionAttribute("basket") Set<Product> basket, @PathVariable("id") Long productId) {
-        boolean userWerification = showAuthentication().getLogin().equals(productRepository.findByProductId(productId).getUser().getLogin());
-        if (userWerification == false){
+        boolean userVerification = showAuthentication().getLogin().equals(productRepository.findByProductId(productId).getUser().getLogin());
+        if (userVerification == false){
         basket.add(productRepository.findOne(productId));
         }
         return "redirect:/full";
