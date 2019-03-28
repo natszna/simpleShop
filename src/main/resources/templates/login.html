@@ -18,21 +18,21 @@
             </div>
 
             <fieldset>
-                <legend>Please Login</legend>
+                <legend th:text="#{general.pleaseLogin}">Please Login</legend>
 
-                <label for="username">Username</label>
+                <label for="username" th:text="#{user.login}">Login</label>
                 <input type="text" id="username" name="username"/>
 
-                <label for="password">Password</label>
+                <label for="password" th:text="#{user.password}">Password</label>
                 <input type="password" id="password" name="password"/>
 
-                <button type="submit">log</button>
+                <button type="submit" th:text="#{general.log}">log</button>
             </fieldset>
         </form>
 
         <a th:href="@{/registry}">
-            <button th:text="#{general.registry}">rejestracja</button>
+            <button th:text="#{general.registry}">Registry</button>
         </a>
-        <footer id="footer">© 2019 natalia.pl</a></footer>
+        <footer id="footer">© 2019 natalia.pl</footer>
     </body>
 </html>

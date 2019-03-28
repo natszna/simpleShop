@@ -1,0 +1,93 @@
+header {
+    background-color: burlywood;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+nav {
+    background-color: lightskyblue;
+}
+
+section {
+    background-color: lightblue;
+    padding: 5px;
+    text-align: justify;
+}
+
+footer {
+    background-color: slategray;
+    text-align: center;
+}
+
+aside {
+    background-color: cornflowerblue;
+}
+
+article aside {
+    float: left;
+}
+
+article footer {
+    clear: left;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+nav ul li a:hover {
+    background-color: #a7b9ff;
+    text-decoration: overline underline;
+}
+
+body {
+    margin: auto;
+    width: 1500px;
+
+}
+
+
+table, tr, td, th {
+
+    border-collapse: collapse;
+    border-width: 2px;
+    border-style: solid;
+}
+
+
+table th, table caption {
+    text-transform: capitalize;
+}
+
+form input, form select {
+    background-color: aliceblue;
+    border: 1px solid;
+}
+
+form input[type=reset]:hover, form input[type=submit]:hover {
+    background-color: blanchedalmond;
+}
+
+form fieldset {
+    margin: 10px;
+}
+
+.label {
+    float: left;
+}

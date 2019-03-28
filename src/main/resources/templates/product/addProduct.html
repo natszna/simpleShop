@@ -7,10 +7,12 @@
     <section>
         <form
                 action="#" th:action="@{/userProducts/addProduct}" th:object="${product}" method="post">
+            <legend th:text="#{general.form}">Form</legend>
 
-            <label for="productId" th:text="#{product.productId}"></label>
+            <!--<label for="productId" th:text="#{product.productId}"></label>-->
             <input id="productId" type="hidden" th:field="*{productId}"/>
-
+            <fieldset>
+                <legend th:text="#{general.aboutProduct}">About Product</legend>
             <label for="productName" th:text="#{product.productName}">productName:</label>
             <input id="productName" type="text" th:field="*{productName}"/>
 
@@ -19,10 +21,15 @@
 
             <label for="price" th:text="#{product.price}">price:</label>
             <input id="price" type="text" th:field="*{price}"/>
+            </fieldset>
+
+            <fieldset>
+                <legend th:text="#{product.available}">Available</legend>
 
             <label for="available" th:text="#{product.available}">available:</label>
-            <input id="available" type="radio" name="available" value="true"/>true
-            <input id="available" type="radio" name="available" value="false"/>false
+                <input id="available" type="radio" name="available" th:value="#{general.true}"/>true
+                <input id="available" type="radio" name="available" th:value="#{general.false}"/>false
+            </fieldset>
 
             <input type="submit" value="Submit" th:value="#{general.submit}"/>
             <input type="reset" value="Reset" th:value="#{general.reset}"/>
