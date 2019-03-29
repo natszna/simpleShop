@@ -15,8 +15,6 @@ import java.util.Objects;
 @Table(name = "products")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(of = "user")
-@EqualsAndHashCode
 @Getter
 @Setter
 public class Product {
@@ -48,4 +46,34 @@ public class Product {
     @Column(name = "add_date")
     @Temporal(TemporalType.DATE)
     private Date date;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return productId == product.productId &&
+                available == product.available &&
+                Objects.equals(productName, product.productName) &&
+                Objects.equals(description, product.description) &&
+                Objects.equals(price, product.price) &&
+                Objects.equals(date, product.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productId, productName, description, price, available, date);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", available=" + available +
+                ", date=" + date +
+                '}';
+    }
 }

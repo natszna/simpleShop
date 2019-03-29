@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.natalia.simpleShop.model.Order;
 import pl.natalia.simpleShop.model.Product;
@@ -12,6 +13,7 @@ import pl.natalia.simpleShop.repository.OrderRepository;
 import pl.natalia.simpleShop.repository.ProductRepository;
 import pl.natalia.simpleShop.repository.UserRepository;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
 
@@ -92,8 +94,11 @@ public class BasketController {
     }
 
     @PostMapping("/orderForm")
-    public String showAddOrder(@ModelAttribute("order") Order order,
+    public String showAddOrder(@Valid @ModelAttribute("order") Order order, BindingResult result,
                                @SessionAttribute("basket") Set<Product> basket) {
+        if (result.hasErrors()){
+            return "user/orderForm";
+        }
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();
         final User user = userRepository.findByLogin(name);

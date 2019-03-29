@@ -58,10 +58,7 @@ nav ul li a:hover {
 
 body {
     margin: auto;
-    width: 1500px;
-
 }
-
 
 table, tr, td, th {
 
@@ -90,4 +87,8 @@ form fieldset {
 
 .label {
     float: left;
+}
+.grid {
+    display: grid;
+    grid-gap: 10px;
 }

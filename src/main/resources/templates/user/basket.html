@@ -22,7 +22,7 @@
             </thead>
             <tbody>
             <!--/*@thymesVar id="basket" type="java.util.Set<pl.natalia.simpleShop.model.Product>"*/-->
-            <tr th:each="product : ${basket}" >
+            <tr th:each="product : ${basket}">
                 <td th:text="${product.productId}"></td>
                 <td th:text="${product.productName}"></td>
                 <td th:text="${product.description}"></td>
@@ -36,7 +36,9 @@
             </tr>
             </tbody>
         </table>
-        <a href="/user/orderForm"> Order </a>
+        <span th:if="${basket.isEmpty()}"><a th:text="#{general.emptyBasket}"></a></span>
+        <span th:unless="${basket.isEmpty()}"> <a href="/user/orderForm" th:text="#{general.order}"></a>
+             </span>
     </section>
 </div>
 </body>
