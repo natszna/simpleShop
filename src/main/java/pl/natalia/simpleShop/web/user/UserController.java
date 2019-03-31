@@ -6,11 +6,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import pl.natalia.simpleShop.model.User;
 import pl.natalia.simpleShop.repository.UserRepository;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Map;
 
@@ -46,9 +49,27 @@ public class UserController {
     }
 
     @PostMapping("/edit")
-    public String showEditUser(@ModelAttribute("user") User user) {
+    public String showEditUser(@Valid @ModelAttribute("user") User user, BindingResult result, Errors errors, Map<String, Object> model) {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();
+        if (result.hasErrors()) {
+            model.put("roles", User.Role.values());
+
+            return "user/edit";
+        }
+        if (!userRepository.findByEmail(user.getEmail()).getEmail().equals(userRepository.findByLogin(name).getEmail())) {
+            errors.rejectValue("email", "pl.SznaKuKZie.project.user.Unique.message");
+            model.put("roles", User.Role.values());
+
+            return "user/edit";
+        }
+        if (!userRepository.findByLogin(user.getLogin()).getLogin().equals(name)) {
+
+            errors.rejectValue("login", "pl.SznaKuKZie.project.user.Unique.message");
+            model.put("roles", User.Role.values());
+
+            return "user/edit";
+        }
         user.setRole(userRepository.findByLogin(name).getRole());
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
