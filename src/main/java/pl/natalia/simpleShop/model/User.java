@@ -1,21 +1,23 @@
 package pl.natalia.simpleShop.model;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode (of= {"product", "order"})
+@ToString (of= {"product", "order"})
 public class User {
 
     public enum Role {
@@ -34,6 +36,7 @@ public class User {
     @Column(name = "lastname")
     private String lastname;
 
+    @Email
     @NotEmpty
     @Column(name = "email", unique = true, nullable = false)
     private String email;
@@ -46,19 +49,19 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
 
-    @NotEmpty
     @Column(name = "approved")
     private boolean approved;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "user")
     private List<Product> products = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
 
 }

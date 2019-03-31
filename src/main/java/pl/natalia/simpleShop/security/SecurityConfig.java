@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.natalia.simpleShop.model.User;
+import pl.natalia.simpleShop.service.UserDetailsService;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -20,9 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/css/**", "/public/**").permitAll()
+                .antMatchers("/home/**").permitAll()
                 .antMatchers("/user/**").hasRole(User.Role.USER.name())
-                .antMatchers("/users/**").hasRole(User.Role.ADMIN.name())
+                .antMatchers("/admin/**").hasRole(User.Role.ADMIN.name())
                 .and().csrf().disable()
                 .httpBasic().and().logout().and().formLogin().loginPage("/login");
     }

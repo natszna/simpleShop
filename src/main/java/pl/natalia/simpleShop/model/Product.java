@@ -5,15 +5,20 @@ import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "products")
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
+@ToString(of = "user")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,20 +32,21 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @NotEmpty
+    @NotNull
+    @DecimalMin(value = "0.1")
     @Column(name = "price")
-    private double price;
+    private BigDecimal price;
 
     @ManyToOne
-    @NotEmpty
     @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "USER_ID")
     private User user;
 
-    @NotEmpty
-    @Column(name="available")
+    @Column(name = "available")
     private boolean available;
 
-    @OneToOne(mappedBy = "product")
-    private Order order;
+    @Column(name = "add_date")
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
 }
