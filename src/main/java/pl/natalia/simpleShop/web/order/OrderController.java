@@ -31,9 +31,8 @@ public class OrderController {
     }
 
     @ModelAttribute("userOrder")
-    public List<Order> getUserOrders(Authentication authentication) {
-        final String name = authentication.getName();
-        return orderRepository.findByUserLogin(name);
+    public List<Order> getUserOrders(Principal principal) {
+        return orderRepository.findByUserLogin(principal.getName());
     }
 
 

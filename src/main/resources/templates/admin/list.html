@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org" th:include="layout :: master">
 <body>
 <div th:fragment="content">
-    <article>
+    <section>
 
         <td><a th:href="@{/admin/add}">
             <button th:text="#{general.add}">Add</button>
@@ -13,7 +13,7 @@
 
             <section th:fragment="usersTable">
         <table>
-            <!--/*@thymesVar id="users" type="java.util.List<pl.natalia.model.User>"*/-->
+            <!--/*@thymesVar id="users" type="java.util.List<pl.natalia.simpleShop.model.User>"*/-->
 
             <thead>
             <tr>
@@ -48,9 +48,11 @@
                 <td><a th:href="@{/admin/edit/{id}(id=${user.userId})}">
                     <button th:text="#{general.edit}">Edit</button>
                 </a></td>
-                <td><button th:onclick="'$(\'#usersContainer\').load(\''+@{/admin/delete(size=${admin.size}, page=${admin.number}, admin=${user.userId})}+'\')'">
+                <td> <span th:if="${user.products.isEmpty() and user.orders.isEmpty()}">
+               <button th:text="#{general.delete}" th:onclick="'$(\'#usersContainer\').load(\''+@{/admin/delete(size=${admin.size}, page=${admin.number}, admin=${user.userId})}+'\')'">
                     delete
-                </button> </td>
+               </button></span>
+                    <span th:unless="${user.products.isEmpty() and user.orders.isEmpty()}"></span></td>
             </tr>
             </tbody>
         </table>
@@ -65,7 +67,7 @@
         <td><a th:href="@{/admin/add}">
             <button th:text="#{general.add}">Add</button>
         </a></td>
-    </article>
+    </section>
 
 </div>
 </body>

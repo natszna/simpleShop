@@ -52,22 +52,18 @@ public class UserController {
     public String showEditUser(@Valid @ModelAttribute("user") User user, BindingResult result, Errors errors, Map<String, Object> model) {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String name = authentication.getName();
+        User user1 = userRepository.findByLogin(name);
         if (result.hasErrors()) {
             model.put("roles", User.Role.values());
-
             return "user/edit";
         }
-        if (!userRepository.findByEmail(user.getEmail()).getEmail().equals(userRepository.findByLogin(name).getEmail())) {
-            errors.rejectValue("email", "pl.SznaKuKZie.project.user.Unique.message");
+
+        if ((userRepository.findByEmail(user.getEmail()) != null)
+            &&(!userRepository.findByEmail(user.getEmail()).equals(user1))) {
+
+
+            errors.rejectValue("email", "pl.natalia.simpleShop.user.Unique.message");
             model.put("roles", User.Role.values());
-
-            return "user/edit";
-        }
-        if (!userRepository.findByLogin(user.getLogin()).getLogin().equals(name)) {
-
-            errors.rejectValue("login", "pl.SznaKuKZie.project.user.Unique.message");
-            model.put("roles", User.Role.values());
-
             return "user/edit";
         }
         user.setRole(userRepository.findByLogin(name).getRole());

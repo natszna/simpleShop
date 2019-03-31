@@ -53,18 +53,11 @@ public class BasketController {
     }
 
     @GetMapping("/products/add/{id}")
-    public String showAddProductToBasket(@SessionAttribute("basket") Set<Product> basket, @PathVariable("id") Long productId) {
-        boolean userVerification = showAuthentication().getLogin().equals(productRepository.findByProductId(productId).getUser().getLogin());
-        if (userVerification == false) {
+    public String showAddProductToBasket(@SessionAttribute("basket") Set<Product> basket,
+                                         @PathVariable("id") Long productId) {
             basket.add(productRepository.findOne(productId));
-        }
-        return "redirect:/user/products";
-    }
 
-    public User showAuthentication() {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        final String name = authentication.getName();
-        return userRepository.findByLogin(name);
+        return "redirect:/user/products";
     }
 
     @GetMapping("/basket")
@@ -95,13 +88,11 @@ public class BasketController {
 
     @PostMapping("/orderForm")
     public String showAddOrder(@Valid @ModelAttribute("order") Order order, BindingResult result,
-                               @SessionAttribute("basket") Set<Product> basket) {
+                               @SessionAttribute("basket") Set<Product> basket, Principal principal) {
         if (result.hasErrors()){
             return "user/orderForm";
         }
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        final String name = authentication.getName();
-        final User user = userRepository.findByLogin(name);
+        final User user = userRepository.findByLogin(principal.getName());
         order.setUser(user);
         order.setProducts(new ArrayList<>(basket));
         for (Product product :

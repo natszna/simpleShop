@@ -44,9 +44,8 @@ public class UserProductController {
 
 
     @ModelAttribute("userProducts")
-    public List<Product> getAllProducts(Authentication authentication) {
-        final String name = authentication.getName();
-        return productRepository.findByUserLogin(name);
+    public List<Product> getAllProducts(Principal principal) {
+        return productRepository.findByUserLogin(principal.getName());
     }
 
     @GetMapping("/userProducts")
@@ -56,7 +55,7 @@ public class UserProductController {
 
     @GetMapping("/userProducts/delete/{id}")
     public String deleteProduct(@PathVariable("id") Long productId) {
-        if (productRepository.findByProductId(productId).isAvailable() == true){
+        if (productRepository.findByProductId(productId).isAvailable()){
             productRepository.delete(productId);}
         return "redirect:/user/userProducts";
     }
@@ -68,14 +67,12 @@ public class UserProductController {
     }
 
     @PostMapping("/userProducts/addProduct")
-    public String showAddProduct(@Valid @ModelAttribute("product") Product product, BindingResult result, Errors errors ) {
+    public String showAddProduct(@Valid @ModelAttribute("product") Product product, BindingResult result, Errors errors,
+                                 Principal principal) {
         if (result.hasErrors()){
-
             return "user/addProduct";
         }
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        final String name = authentication.getName();
-        final User user = userRepository.findByLogin(name);
+        final User user = userRepository.findByLogin(principal.getName());
         product.setDate(new Date());
         product.setUser(user);
         productRepository.save(product);
@@ -85,7 +82,7 @@ public class UserProductController {
     @GetMapping("/userProducts/edit/{id}")
     public String editProduct(Map<String, Object> model2, @PathVariable("id") long productId) {
         Product product = productRepository.findByProductId(productId);
-        if (product.isAvailable() == true) {
+        if (product.isAvailable()) {
             model2.put("product", product);
         }
         return "user/addProduct";

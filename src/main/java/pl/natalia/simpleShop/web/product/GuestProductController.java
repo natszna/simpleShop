@@ -30,9 +30,9 @@ public class GuestProductController {
     @ModelAttribute("role")
     public String currentUserRole(Principal principal) {
         if (principal != null) {
-
-            String role =  userRepository.findByLogin(principal.getName()).getRole().toString();
-            return role;        }
+            String role = userRepository.findByLogin(principal.getName()).getRole().toString();
+            return role;
+        }
         return "anonymous";
     }
 
