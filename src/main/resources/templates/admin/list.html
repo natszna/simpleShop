@@ -3,11 +3,20 @@
       xmlns:th="http://www.thymeleaf.org" th:include="layout :: master">
 <body>
 <div th:fragment="content">
-    <section>
+    <article>
+        <header>
+            <div th:text="${countUser}"></div>
+        </header>
         <td><a th:href="@{/admin/add}">
             <button th:text="#{general.add}">Add</button>
         </a></td>
+
+        <div id="usersContainer">
+
+            <section th:fragment="usersTable">
         <table>
+            <!--/*@thymesVar id="users" type="java.util.List<pl.natalia.model.User>"*/-->
+
             <thead>
             <tr>
                 <th th:text="#{user.userId}">Id</th>
@@ -45,10 +54,19 @@
             </tr>
             </tbody>
         </table>
+                <div th:if="${admin.totalPages > 0}">
+                    <button th:each="pageNumber : ${pageNumbers}" th:text="${pageNumber}"
+                            th:onclick="'$(\'#usersContainer\').load(\''+@{/admin/table(size=${admin.size}, page=${pageNumber})}+'\')'">
+                        0
+                    </button>
+                </div>
+            </section>
+        </div>
         <td><a th:href="@{/admin/add}">
             <button th:text="#{general.add}">Add</button>
         </a></td>
-    </section>
+    </article>
+
 </div>
 </body>
 </html>

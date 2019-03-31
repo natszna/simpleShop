@@ -2,6 +2,8 @@ package pl.natalia.simpleShop.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,6 +19,9 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Controller
@@ -51,8 +56,34 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String showUsersList() {
+    public String showUsers(@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,
+                            Map<String, Object> model) {
+        int currentPage = page.orElse(0);
+        int pageSize = size.orElse(5);
+        Page<User> usersPage = userRepository.findAll(new PageRequest(currentPage, pageSize));
+        model.put("admin", usersPage);
+        model.put("countUser", userRepository.count());
+        int totalPages = usersPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.range(0, totalPages).boxed().collect(Collectors.toList());
+            model.put("pageNumbers", pageNumbers);
+        }
         return "admin/list";
+    }
+
+    @GetMapping("/admin/table")
+    public String showUsersTable(@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,
+                                 Map<String, Object> model) {
+        int currentPage = page.orElse(0);
+        int pageSize = size.orElse(5);
+        Page<User> usersPage = userRepository.findAll(new PageRequest(currentPage, pageSize));
+        model.put("admin", usersPage);
+        int totalPages = usersPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.range(0, totalPages).boxed().collect(Collectors.toList());
+            model.put("pageNumbers", pageNumbers);
+        }
+        return "admin/list :: usersTable";
     }
 
     @GetMapping("/admin/add")
