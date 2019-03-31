@@ -37,7 +37,7 @@ public class AdminController {
     private OrderRepository orderRepository;
 
     @InitBinder
-    public void initBinder(WebDataBinder dataBinder){
+    public void initBinder(WebDataBinder dataBinder) {
         StringTrimmerEditor ste = new StringTrimmerEditor(true);
         dataBinder.registerCustomEditor(String.class, ste);
     }
@@ -97,7 +97,7 @@ public class AdminController {
     public String showAddUser(@Valid @ModelAttribute("user") User user,
                               BindingResult result, Errors errors,
                               Map<String, Object> model) {
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             model.put("roles", User.Role.values());
             return "admin/add";
         }
@@ -128,11 +128,6 @@ public class AdminController {
     public String showEditUser(@ModelAttribute("user") User user, @PathVariable("id") long userId) {
         userRepository.findByUserId(userId);
         userRepository.save(user);
-        return "redirect:/admin";
-    }
-
-    @GetMapping("/admin/delete/{id}")
-    public String DeleteUser(@PathVariable("id") Long userId) {
         return "redirect:/admin";
     }
 

@@ -55,7 +55,7 @@ public class BasketController {
     @GetMapping("/products/add/{id}")
     public String showAddProductToBasket(@SessionAttribute("basket") Set<Product> basket,
                                          @PathVariable("id") Long productId) {
-            basket.add(productRepository.findOne(productId));
+        basket.add(productRepository.findOne(productId));
 
         return "redirect:/user/products";
     }
@@ -70,6 +70,7 @@ public class BasketController {
         basket.remove(productRepository.findOne(productId));
         return "redirect:/user/basket";
     }
+
     @ModelAttribute("products")
     public List<Product> getAllProductsInf() {
         return productRepository.findAll();
@@ -89,14 +90,14 @@ public class BasketController {
     @PostMapping("/orderForm")
     public String showAddOrder(@Valid @ModelAttribute("order") Order order, BindingResult result,
                                @SessionAttribute("basket") Set<Product> basket, Principal principal) {
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "user/orderForm";
         }
         final User user = userRepository.findByLogin(principal.getName());
         order.setUser(user);
         order.setProducts(new ArrayList<>(basket));
         for (Product product :
-                new ArrayList<>(basket) ) {
+                new ArrayList<>(basket)) {
             product.setAvailable(false);
             productRepository.save(product);
         }

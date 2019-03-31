@@ -31,10 +31,10 @@
             <input id="login" type="text" th:field="*{login}"/>
             <label for="login"><span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span></label>
 
-                <label for="role" th:text="#{user.role}">role:</label>
-                <select id="role" th:field="*{role}">
-                    <option th:each="role : ${roles}" th:value="${role}" th:text="${role}">USER</option>
-                </select>
+            <label for="role" th:text="#{user.role}">role:</label>
+            <select id="role" th:field="*{role}">
+                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}">USER</option>
+            </select>
             <span></span>
 
             <input type="submit" value="Submit" th:value="#{general.submit}"/>

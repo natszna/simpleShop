@@ -17,6 +17,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
+@ToString(of = {"user", "products"})
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,29 +38,8 @@ public class Order {
     @OneToMany
     @JsonIgnore
     @JoinTable(name = "orders_products",
-            joinColumns = @JoinColumn(name ="order_id", referencedColumnName = "ORDER_ID"),
-            inverseJoinColumns = @JoinColumn(name="product_id", referencedColumnName = "PRODUCT_ID"))
+            joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "ORDER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "PRODUCT_ID"))
     private List<Product> products = new ArrayList<>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return orderId == order.orderId &&
-                Objects.equals(address, order.address);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(orderId, address);
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderId=" + orderId +
-                ", address='" + address + '\'' +
-                '}';
-    }
 }

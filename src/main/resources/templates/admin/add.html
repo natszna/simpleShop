@@ -6,7 +6,7 @@
 <div th:fragment="content">
     <section>
         <form class="grid" style="grid-template-columns: 150px 150px 200px;"
-                action="#" th:action="@{/admin/add}" th:object="${user}" method="post">
+              action="#" th:action="@{/admin/add}" th:object="${user}" method="post">
             <!--<legend th:text="#{general.form}">Form</legend>-->
 
             <!--<label for="userId" th:text="#{user.userId}"></label>-->
@@ -26,7 +26,7 @@
             <input id="email" type="text" th:field="*{email}"/>
             <label for="email"><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></label>
 
-                <!--<legend th:text="#{general.loginData}">Login Data</legend>-->
+            <!--<legend th:text="#{general.loginData}">Login Data</legend>-->
             <label for="password" th:text="#{user.password}">Password:</label>
             <input id="password" type="text" th:field="*{password}"/>
             <label for="password"><span th:if="${#fields.hasErrors('password')}"
@@ -37,7 +37,7 @@
             <label for="login"><span th:if="${#fields.hasErrors('login')}"
                                      th:errors="*{login}"></span></label>
 
-                <!--<legend th:text="#{general.function}">Function</legend>-->
+            <!--<legend th:text="#{general.function}">Function</legend>-->
             <label for="role" th:text="#{user.role}">role:</label>
             <select id="role" th:field="*{role}">
                 <option th:each="role : ${roles}" th:value="${role}" th:text="${role}">USER</option>

@@ -9,7 +9,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Objects;
+
 
 @Entity
 @Table(name = "products")
@@ -17,6 +17,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
+@ToString(of = "user")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,40 +42,11 @@ public class Product {
     @JoinColumn(name = "user_id", referencedColumnName = "USER_ID")
     private User user;
 
-    @Column(name="available")
+    @Column(name = "available")
     private boolean available;
 
     @Column(name = "add_date")
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return productId == product.productId &&
-                available == product.available &&
-                Objects.equals(productName, product.productName) &&
-                Objects.equals(description, product.description) &&
-                Objects.equals(price, product.price) &&
-                Objects.equals(date, product.date);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(productId, productName, description, price, available, date);
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", productName='" + productName + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", available=" + available +
-                ", date=" + date +
-                '}';
-    }
 }

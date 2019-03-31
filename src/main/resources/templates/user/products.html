@@ -21,7 +21,7 @@
             <tbody>
 
             <tr th:each="product : ${products}">
-                    <span th:if="${product.available == true}">
+                    <div th:if="${product.available == true}">
 
                 <td th:text="${product.productId}"></td>
                 <td th:text="${product.productName}"></td>
@@ -34,11 +34,10 @@
                     <a th:href="@{/user/products/add/{id}(id=${product.productId})}">
                         <button th:text="#{general.addProduct}">Add Product</button></a>
                 </td>
-                    </span>
+                    </div>
             </tr>
             </tbody>
         </table>
-
         <aside id="product">
             <ul>
                 <!--/*@thymesVar id="basket" type="java.util.Set<pl.natalia.simpleShop.model.Product>"*/-->

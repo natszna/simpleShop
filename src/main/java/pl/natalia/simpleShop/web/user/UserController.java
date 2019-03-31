@@ -25,7 +25,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @InitBinder
-    public void initBinder(WebDataBinder dataBinder){
+    public void initBinder(WebDataBinder dataBinder) {
         StringTrimmerEditor ste = new StringTrimmerEditor(true);
         dataBinder.registerCustomEditor(String.class, ste);
     }
@@ -45,7 +45,7 @@ public class UserController {
 
         User user = userRepository.findByLogin(name);
         model.put("user", user);
-        return  "user/edit";
+        return "user/edit";
     }
 
     @PostMapping("/edit")
@@ -59,7 +59,7 @@ public class UserController {
         }
 
         if ((userRepository.findByEmail(user.getEmail()) != null)
-            &&(!userRepository.findByEmail(user.getEmail()).equals(user1))) {
+                && (!userRepository.findByEmail(user.getEmail()).equals(user1))) {
 
 
             errors.rejectValue("email", "pl.natalia.simpleShop.user.Unique.message");
