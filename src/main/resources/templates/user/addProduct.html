@@ -13,10 +13,12 @@
 
             <label for="productName" th:text="#{product.productName}">productName:</label>
             <input id="productName" type="text" th:field="*{productName}"/>
-            <span></span>
+            <label for="productName"><span th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></span></label>
+
             <label for="description" th:text="#{product.description}">description:</label>
             <input id="description" type="text" th:field="*{description}"/>
-            <span></span>
+            <label for="description"><span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span></label>
+
             <label for="price" th:text="#{product.price}">price:</label>
             <input id="price" type="text" th:field="*{price}"/>
             <label for="price"><span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span></label>

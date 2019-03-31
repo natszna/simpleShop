@@ -1,5 +1,7 @@
 package pl.natalia.simpleShop.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pl.natalia.simpleShop.model.Product;
@@ -12,4 +14,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByUserLogin(String login);
     List <Product> findAllByAvailable(boolean b);
     List<Product> findByUserUserId(long userId);
+    Page<Product> findAllByAvailableTrue(Pageable b);
 }

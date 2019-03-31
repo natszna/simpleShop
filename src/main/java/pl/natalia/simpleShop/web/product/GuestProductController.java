@@ -41,7 +41,7 @@ public class GuestProductController {
                            Map<String, Object> model) {
         int currentPage = page.orElse(0);
         int pageSize = size.orElse(5);
-        Page<Product> productsPage = productRepository.findAll(new PageRequest(currentPage, pageSize));
+        Page<Product> productsPage = productRepository.findAllByAvailableTrue(new PageRequest(currentPage, pageSize));
         model.put("products", productsPage);
         model.put("count", productRepository.findAllByAvailable(true).size());
         int totalPages = productsPage.getTotalPages();
@@ -57,7 +57,7 @@ public class GuestProductController {
                             Map<String, Object> model) {
         int currentPage = page.orElse(0);
         int pageSize = size.orElse(5);
-        Page<Product> productsPage = productRepository.findAll(new PageRequest(currentPage, pageSize));
+        Page<Product> productsPage = productRepository.findAllByAvailableTrue(new PageRequest(currentPage, pageSize));
         model.put("products", productsPage);
         int totalPages = productsPage.getTotalPages();
         if (totalPages > 0) {

@@ -7,7 +7,6 @@
         <span th:if="${basket.isEmpty()}"><a th:text="#{general.emptyBasket}"></a></span>
         <span th:unless="${basket.isEmpty()}">
         <table>
-            <caption th:text="#{product.products}">Products</caption>
             <thead>
             <tr>
                 <th th:text="#{product.productId}">id</th>

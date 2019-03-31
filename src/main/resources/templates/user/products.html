@@ -4,9 +4,7 @@
 <body>
 <div th:fragment="content">
     <section>
-
         <table>
-            <caption th:text="#{product.products}">Products</caption>
             <thead>
             <tr>
                 <th th:text="#{product.productId}">id</th>
@@ -18,13 +16,11 @@
                 <th th:text="#{product.date}">Date</th>
                 <th th:text="#{general.addProduct}">Add Product</th>
 
-
             </tr>
             </thead>
             <tbody>
 
             <tr th:each="product : ${products}">
-
                     <span th:if="${product.available == true}">
 
                 <td th:text="${product.productId}"></td>
@@ -45,7 +41,7 @@
 
         <aside id="product">
             <ul>
-                <!--/*@thymesVar id="basket" type="java.util.Set<pl.natalia.simpleShop.product.model.Product>"*/-->
+                <!--/*@thymesVar id="basket" type="java.util.Set<pl.natalia.simpleShop.model.Product>"*/-->
                 <li th:each="product : ${basket}" th:text="${product.productName}">name</li>
             </ul>
         </aside>
