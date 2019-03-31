@@ -1,4 +1,4 @@
-package pl.natalia.simpleShop.web;
+package pl.natalia.simpleShop.web.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -39,7 +39,7 @@ public class OrderController {
 
     @GetMapping("/userOrder")
     public String showUserOrders() {
-        return "order/orderList";
+        return "user/orderList";
     }
 
 

@@ -5,6 +5,9 @@
 <div th:fragment="content">
     <section>
 
+    <span th:if="${userOrder.isEmpty()}"><a th:text="#{general.emptyOrder}"></a>
+    </span>
+        <span th:unless="${userOrder.isEmpty()}">
         <table>
             <caption th:text="#{order.orders}">Orders</caption>
             <thead>
@@ -13,11 +16,9 @@
                 <th th:text="#{order.address}">Address</th>
                 <th th:text="#{order.user}">User</th>
                 <th th:text="#{order.product}">Products</th>
-
             </tr>
             </thead>
             <tbody>
-
             <tr th:each="order : ${userOrder}">
                 <td th:text="${order.orderId}"></td>
                 <td th:text="${order.address}"></td>
@@ -28,7 +29,7 @@
             </tr>
             </tbody>
         </table>
-
+        </span>
     </section>
 </div>
 </body>

@@ -58,10 +58,13 @@ nav ul li a:hover {
 
 body {
     margin: auto;
+    width: 1000px;
+    background-color: beige;
 }
 
 table, tr, td, th {
-
+    position: center;
+    text-align: center;
     border-collapse: collapse;
     border-width: 2px;
     border-style: solid;

@@ -5,6 +5,7 @@
 <body>
 <div th:fragment="content">
     <section>
+
         <!--/*@thymesVar id="order" type="order"*/-->
         <form class="grid" style="grid-template-columns: 150px 150px 200px;"
               action="#" th:action="@{/user/orderForm}" th:object="${order}" method="post">

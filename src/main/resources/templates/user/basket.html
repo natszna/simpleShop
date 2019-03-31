@@ -4,7 +4,8 @@
 <body>
 <div th:fragment="content">
     <section>
-
+        <span th:if="${basket.isEmpty()}"><a th:text="#{general.emptyBasket}"></a></span>
+        <span th:unless="${basket.isEmpty()}">
         <table>
             <caption th:text="#{product.products}">Products</caption>
             <thead>
@@ -36,9 +37,8 @@
             </tr>
             </tbody>
         </table>
-        <span th:if="${basket.isEmpty()}"><a th:text="#{general.emptyBasket}"></a></span>
-        <span th:unless="${basket.isEmpty()}"> <a href="/user/orderForm" th:text="#{general.order}"></a>
-             </span>
+      <a href="/user/orderForm" th:text="#{general.order}"></a>
+        </span>
     </section>
 </div>
 </body>

@@ -1,4 +1,4 @@
-package pl.natalia.simpleShop.web;
+package pl.natalia.simpleShop.web.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

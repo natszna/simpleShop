@@ -1,4 +1,4 @@
-package pl.natalia.simpleShop.web;
+package pl.natalia.simpleShop.web.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -90,7 +90,7 @@ public class BasketController {
     @GetMapping("/orderForm")
     public String addOrder(Map<String, Object> model) {
         model.put("order", new Order());
-        return "order/orderForm";
+        return "user/orderForm";
     }
 
     @PostMapping("/orderForm")
