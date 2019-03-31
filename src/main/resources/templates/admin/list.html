@@ -4,9 +4,7 @@
 <body>
 <div th:fragment="content">
     <article>
-        <header>
-            <div th:text="${countUser}"></div>
-        </header>
+
         <td><a th:href="@{/admin/add}">
             <button th:text="#{general.add}">Add</button>
         </a></td>
@@ -41,16 +39,18 @@
                 <td th:text="${user.role}"></td>
                 <td>
                     <span th:if="${user.approved == true}">true</span>
-                    <span th:unless="${user.approved == true}"><a th:href="@{/admin/approved/{id}(id=${user.userId})}">
-                        <button th:text="#{general.approved}">Approved</button></a></span>
+                    <span th:unless="${user.approved == true}">
+                        <button th:onclick="'$(\'#usersContainer\').load(\''+@{/admin/approved(size=${admin.size}, page=${admin.number}, admin=${user.userId})}+'\')'">
+                    approved
+                </button></span>
                 </td>
 
                 <td><a th:href="@{/admin/edit/{id}(id=${user.userId})}">
                     <button th:text="#{general.edit}">Edit</button>
                 </a></td>
-                <td><a th:href="@{/admin/delete/{id}(id=${user.userId})}">
-                    <button th:text="#{general.delete}">Delete</button>
-                </a></td>
+                <td><button th:onclick="'$(\'#usersContainer\').load(\''+@{/admin/delete(size=${admin.size}, page=${admin.number}, admin=${user.userId})}+'\')'">
+                    delete
+                </button> </td>
             </tr>
             </tbody>
         </table>

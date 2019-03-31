@@ -133,18 +133,23 @@ public class AdminController {
 
     @GetMapping("/admin/delete/{id}")
     public String DeleteUser(@PathVariable("id") Long userId) {
-        if (productRepository.findByUserUserId(userId).isEmpty() && orderRepository.findByUserUserId(userId).isEmpty()){
-            userRepository.delete(userId);}
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/approved/{id}")
-    public String approveUser(@PathVariable("id") Long userId) {
+    @GetMapping("/admin/delete")
+    public String DeleteUser(@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,
+                             @RequestParam("admin") Long userId, Map<String, Object> model) {
+        userRepository.delete(userId);
+        return showUsersTable(page, size, model);
+    }
+
+    @GetMapping("/admin/approved")
+    public String approveUser(@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,
+                              @RequestParam("admin") Long userId, Map<String, Object> model) {
         User user = userRepository.findByUserId(userId);
         user.setApproved(true);
         userRepository.save(user);
-        return "redirect:/admin";
+        return showUsersTable(page, size, model);
     }
-
 
 }
