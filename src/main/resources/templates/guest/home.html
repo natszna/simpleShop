@@ -4,36 +4,13 @@
 <body>
 <div th:fragment="content">
     <section>
-
-        <table>
-            <caption th:text="#{product.products}">Products</caption>
-            <thead>
-            <tr>
-                <th th:text="#{product.productId}">Product Id</th>
-                <th th:text="#{product.productName}">Product name</th>
-                <th th:text="#{product.description}">Description</th>
-                <th th:text="#{product.price}">Price</th>
-                <th th:text="#{product.available}">Available</th>
-                <th th:text="#{product.date}">Date</th>
-
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="product : ${products}">
-                <span th:if="${product.available == true}">
-                <td th:text="${product.productId}"></td>
-                <td th:text="${product.productName}"></td>
-                <td th:text="${product.description}"></td>
-                <td th:text="${product.price}"></td>
-                <td th:text="${product.available}"></td>
-                <td th:text="${product.date}"></td>
-
-                </span>
-            </tr>
-            </tbody>
-        </table>
-
+        <script>
+            $(window).on("load", function() {
+                loadDataWithAjax();
+            });
+        </script>
+        <div id="destination">
+        </div>
     </section>
 </div>
 </body>

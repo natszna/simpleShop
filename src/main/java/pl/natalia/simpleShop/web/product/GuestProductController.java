@@ -10,6 +10,7 @@ import pl.natalia.simpleShop.repository.UserRepository;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class GuestProductController {
@@ -29,13 +30,14 @@ public class GuestProductController {
         return "anonymous";
     }
 
-    @ModelAttribute("products")
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
-
     @GetMapping("/home")
     public String showList() {
         return "guest/home";
+    }
+
+    @GetMapping("/home/table")
+    public String showTable(Map<String, Object> model) {
+        model.put("products", productRepository.findAll());
+        return "guest/table :: productsTable";
     }
 }
